@@ -1,0 +1,34 @@
+@model Clinic.Models.Appointment
+
+@{
+    ViewData["Title"] = "Детали встречи";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">ID:</dt>
+        <dd class="col-sm-10">@Model.Id</dd>
+        
+        <dt class="col-sm-2">Описание:</dt>
+        <dd class="col-sm-10">@Model.Description</dd>
+        
+        <dt class="col-sm-2">Врач:</dt>
+        <dd class="col-sm-10">@($"{Model.Doctor.LastName} {Model.Doctor.FirstName} {Model.Doctor.MiddleName}")</dd>
+        
+        <dt class="col-sm-2">ID врача:</dt>
+        <dd class="col-sm-10">@Model.DoctorId</dd>
+        
+        <dt class="col-sm-2">Пациент:</dt>
+        <dd class="col-sm-10">@($"{Model.Patient.LastName} {Model.Patient.FirstName} {Model.Patient.MiddleName}")</dd>
+        
+        <dt class="col-sm-2">ID пациента:</dt>
+        <dd class="col-sm-10">@Model.PatientId</dd>
+
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться к списку</a>
+</div>

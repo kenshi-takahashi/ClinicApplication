@@ -1,0 +1,28 @@
+@{
+    ViewData["Title"] = "Unauthorized";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container-full-height {
+            min-height: calc(100vh - 200px); /* 100vh минус высота футера (200px) */
+            margin-top: 10px; /* Верхний отступ для футера */
+        }
+    </style>
+</head>
+<body>
+    <div class="container-full-height d-flex justify-content-center align-items-center">
+        <div class="card p-4 shadow" style="width: 300px;">
+            <h1 class="text-danger mb-4">Unauthorized</h1>
+            <p class="mb-4">Please log in to access this page.</p>
+            <a href="@Url.Action("Login", "Account")" class="btn btn-primary btn-block">Login</a>
+        </div>
+    </div>
+</body>
+</html>

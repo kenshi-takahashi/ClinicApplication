@@ -1,0 +1,26 @@
+@model Clinic.Models.Doctor
+
+<h1>Удалить врача</h1>
+
+<h3>Вы уверены, что хотите удалить этого врача?</h3>
+<div>
+    <h4>Информация о враче:</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Имя:</dt>
+        <dd class="col-sm-10">@Model.FirstName</dd>
+        <dt class="col-sm-2">Фамилия:</dt>
+        <dd class="col-sm-10">@Model.LastName</dd>
+        <dt class="col-sm-2">Отчество:</dt>
+        <dd class="col-sm-10">@Model.MiddleName</dd>
+        <dt class="col-sm-2">Отделение:</dt>
+        <dd class="col-sm-10">@Model.Registry.DepartmentNumber</dd>
+        <dt class="col-sm-2">Специальность:</dt>
+        <dd class="col-sm-10">@Model.Specialty.Name</dd>
+    </dl>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Удалить</button>
+        <a href="@Url.Action("Index", "Doctors")" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

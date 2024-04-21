@@ -1,0 +1,72 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+#logoutMenu {
+    position: absolute;
+    background-color: #ffffff;
+    /*Светло-серыйфон*/border: 1px solid #ccc;
+    /*Сераяграница*/padding: 10px;
+    border-bottom-left-radius: 5px;
+    border-top: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /*Тень*/right: 0;
+    /*Расположениесправа*/top: 100%;
+    transition: opacity .3s ease-in-out;
+    -webkit-transition: opacity .3s ease-in-out;
+    -moz-transition: opacity .3s ease-in-out;
+    -ms-transition: opacity .3s ease-in-out;
+    -o-transition: opacity .3s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    top: -100%;
+}
+
+.visible {
+    opacity: 1; /* Прозрачность при видимой панели */
+    top: 100%; /* Конечное положение (показано снизу) */
+}
+
+#logoutMenu button {
+    background-color: #b3b3b3;
+    /*Красныйцветфонакнопки*/border: none;
+    /*Убратьграницу*/padding: 8px 16px;
+    /*Полявокругтекстакнопки*/border-radius: 5px;
+    /*Закруглениеуглов*/cursor: pointer;
+    /*Курсорпринаведении*/margin-top: 5px;
+    /*Отступсверху*/transition: .3s ease-in-out;
+    -webkit-transition: .3s ease-in-out;
+    -moz-transition: .3s ease-in-out;
+    -ms-transition: .3s ease-in-out;
+    -o-transition: .3s ease-in-out;
+}
+
+#logoutMenu button:hover {
+    background-color: #050505;
+    color: white; /* Красный цвет фона кнопки при наведении */
+}
+
+#userMenu {
+    position: relative;
+}
