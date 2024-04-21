@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Clinic.Models;
+using Clinic.Controllers;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Clinic.Controllers

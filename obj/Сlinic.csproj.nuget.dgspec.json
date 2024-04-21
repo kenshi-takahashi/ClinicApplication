@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\ClinicApplication\\Сlinic.csproj": {}
+    "E:\\ClinicApplication\\Сlinic.csproj": {}
   },
   "projects": {
-    "e:\\ClinicApplication\\Сlinic.csproj": {
+    "E:\\ClinicApplication\\Сlinic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\ClinicApplication\\Сlinic.csproj",
+        "projectUniqueName": "E:\\ClinicApplication\\Сlinic.csproj",
         "projectName": "Сlinic",
-        "projectPath": "e:\\ClinicApplication\\Сlinic.csproj",
+        "projectPath": "E:\\ClinicApplication\\Сlinic.csproj",
         "packagesPath": "C:\\Users\\Kenshi\\.nuget\\packages\\",
-        "outputPath": "e:\\ClinicApplication\\obj\\",
+        "outputPath": "E:\\ClinicApplication\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Kenshi\\AppData\\Roaming\\NuGet\\NuGet.Config",

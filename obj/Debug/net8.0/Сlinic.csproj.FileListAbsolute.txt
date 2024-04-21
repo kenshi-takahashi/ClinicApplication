@@ -502,3 +502,4 @@ e:\ClinicApplication\obj\Debug\net8.0\refint\Сlinic.dll
 e:\ClinicApplication\obj\Debug\net8.0\Сlinic.pdb
 e:\ClinicApplication\obj\Debug\net8.0\Сlinic.genruntimeconfig.cache
 e:\ClinicApplication\obj\Debug\net8.0\ref\Сlinic.dll
+E:\ClinicApplication\obj\Debug\net8.0\Сlinic.sourcelink.json

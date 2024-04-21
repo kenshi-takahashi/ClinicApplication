@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Lgb61zZwdFvd7BaILubgKhcTG3sm0zp2Hm7AAChtc1ReWK3ryO2tOLhadmA1Xtk6QkY2Skqj1F0/4wlpHxIAmg==",
+  "dgSpecHash": "n3rq9dex97QZy1ajQ9h8N8SZEmMwQfv2A9s9ez/eDtQ4KApKWw2NHhkqCixMjXFhLyn/1BtqFV9ci7+Dlzcvww==",
   "success": true,
-  "projectFilePath": "e:\\ClinicApplication\\Сlinic.csproj",
+  "projectFilePath": "E:\\ClinicApplication\\Сlinic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kenshi\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Kenshi\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

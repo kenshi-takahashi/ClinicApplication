@@ -22,36 +22,45 @@ namespace Clinic.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
+        {
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                // Проверяем, существует ли уже пользователь с такой почтой
+                var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                if (existingUser != null)
                 {
-                    // Находим максимальное значение Id в таблице Users
-                    int maxId = await _context.Users.MaxAsync(u => (int?)u.Id) ?? 0;
-
-                    // Создаем нового пользователя с Id на 1 больше максимального
-                    User user = new User 
-                    { 
-                        Id = maxId + 1,
-                        Email = model.Email, 
-                        Password = model.Password 
-                    };
-
-                    Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
-                    if (userRole != null)
-                        user.Role = userRole;
-
-                    _context.Users.Add(user);
-                    await _context.SaveChangesAsync();
-
-                    await Authenticate(user);
-
-                    return RedirectToAction("Index", "Home");
+                    // Если пользователь существует, добавляем ошибку в ModelState и возвращаем представление снова
+                    ModelState.AddModelError("", "Пользователь с такой почтой уже существует");
+                    return View(model);
                 }
-                return View(model);
+
+                // Если пользователя с такой почтой не существует, продолжаем процесс регистрации
+                int maxId = await _context.Users.MaxAsync(u => (int?)u.Id) ?? 0;
+                User user = new User 
+                { 
+                    Id = maxId + 1,
+                    Email = model.Email, 
+                    Password = model.Password 
+                };
+
+                Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == "user");
+                if (userRole != null)
+                    user.Role = userRole;
+
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+
+                await Authenticate(user);
+
+                return RedirectToAction("Index", "Home");
             }
+            return View(model);
+        }
+
 
         [HttpGet]
         public IActionResult Login()

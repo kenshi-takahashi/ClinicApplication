@@ -7,40 +7,25 @@
         menu.classList.toggle("hidden");
         menu.classList.toggle("visible");
     }
-    
-// $(document).ready(function () {
-//     $('#searchInput').on('input', function () {
-//         var searchString = $(this).val().toLowerCase();
-//         $.ajax({
-//             url: '/Appointment/Index',
-//             type: 'GET',
-//             data: { searchString: searchString },
-//             success: function (data) {
-//                 var newTBody = $(data).find('tbody');
-//                 $('tbody').replaceWith(newTBody);
-//             }
-//         });
-//     });
-// });
 
-$(document).ready(function () {
-    $('#searchInput').on('input', function () {
-        var searchString = $(this).val().toLowerCase();
-        var form = $(this).closest('form');
-        var actionUrl = form.attr('action');
-        var method = form.attr('method');
+    $(document).ready(function () {
+        $('#searchInput').on('input', function () {
+            var searchString = $(this).val().toLowerCase();
+            var form = $(this).closest('form');
+            var actionUrl = form.attr('action');
+            var method = form.attr('method');
 
-        $.ajax({
-            url: actionUrl,
-            type: method,
-            data: form.serialize(), // Сериализуем все данные формы
-            success: function (data) {
-                var newTBody = $(data).find('tbody');
-                $('tbody').replaceWith(newTBody);
-            }
+            $.ajax({
+                url: actionUrl,
+                type: method,
+                data: form.serialize(), // Сериализуем все данные формы
+                success: function (data) {
+                    var newTBody = $(data).find('tbody');
+                    $('tbody').replaceWith(newTBody);
+                }
+            });
         });
     });
-});
 
 
 
