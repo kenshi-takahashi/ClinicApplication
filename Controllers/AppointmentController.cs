@@ -85,6 +85,9 @@ namespace Clinic.Controllers
         {
             if (ModelState.IsValid)
             {
+                int maxId = await _context.Appointments.MaxAsync(d => (int?)d.Id) ?? 0;
+                appointment.Id = maxId + 1;
+
                 _context.Add(appointment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

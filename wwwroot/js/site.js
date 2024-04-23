@@ -28,6 +28,38 @@
     });
 
 
+// Функция для переключения темы
+function toggleTheme() {
+    // Получаем текущее значение выбранной темы из localStorage
+    var currentTheme = localStorage.getItem('theme');
+
+    // Если текущая тема - светлая, то переключаем на темную, и наоборот
+    if (currentTheme === 'light') {
+        applyTheme('dark');
+    } else {
+        applyTheme('light');
+    }
+}
+
+// Функция для применения выбранной темы
+function applyTheme(theme) {
+    // Применяем класс темы к body
+    document.body.classList.toggle('dark-theme', theme === 'dark');
+
+    // Сохраняем выбранную тему в localStorage
+    localStorage.setItem('theme', theme);
+}
+
+// Применяем сохраненную тему при загрузке страницы
+var savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+    applyTheme(savedTheme);
+}
+
+// Обработчик события для кнопки переключения темы
+document.getElementById('theme-toggle').addEventListener('click', function() {
+    toggleTheme();
+});
 
 
 

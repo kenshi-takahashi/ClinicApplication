@@ -19,7 +19,35 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: white;
+  color: rgb(24, 24, 24);
+  /* transition: background-color 0.3s, color 0.3s;
+  -webkit-transition: background-color 0.3s, color 0.3s;
+  -moz-transition: background-color 0.3s, color 0.3s;
+  -ms-transition: background-color 0.3s, color 0.3s;
+  -o-transition: background-color 0.3s, color 0.3s; */
 }
+
+.dark-theme {
+    background-color: rgb(27, 27, 27);
+    color: rgb(223, 223, 223);
+}
+
+.light-theme th,
+.light-theme a,
+.light-theme span
+.light-theme td {
+    color: rgb(24, 24, 24); /* Цвет текста для светлой темы */
+}
+
+/* Темная тема */
+.dark-theme th,
+.dark-theme a,
+.dark-theme span,
+.dark-theme td {
+    color: rgb(223, 223, 223); /* Цвет текста для темной темы */
+}
+
 
 #logoutMenu {
     position: absolute;

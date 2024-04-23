@@ -10,20 +10,20 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-switch bg-switch border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Сlinic</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between text-switch">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Appointment" asp-action="Index">Appointments</a>
@@ -31,22 +31,23 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Doctors" asp-action="Index">Doctors</a>
                         </li>
-                    <div style="margin-left: auto;">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <div id="userMenu" style="cursor: pointer">
-                                <span class="nav-link text-dark" onclick="toggleMenu()">@User.Identity.Name</span>
-                            </div>
-                            <form id="logoutMenu" class="hidden" asp-controller="Account" asp-action="Logout" method="post">
-                                <button type="submit" class="btn btn-primary">Выйти</button>
-                            </form>
-                        }
-                        else {
-                            <div>
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Войти</a>
-                            </div>
-                        }
-                    </div>
+                        <div style="margin-left: auto;" >
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div id="userMenu" style="cursor: pointer">
+                                    <span class="nav-link theme-text-color" onclick="toggleMenu()">@User.Identity.Name</span>
+                                </div>
+                                <form id="logoutMenu" class="hidden" asp-controller="Account" asp-action="Logout" method="post">
+                                    <div id="theme-toggle" class="btn btn-sm btn-dark">Toggle Theme</div>
+                                    <button type="submit" class="btn btn-primary">Выйти</button>
+                                </form>
+                            }
+                            else {
+                                <div>
+                                    <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Войти</a>
+                                </div>
+                            }
+                        </div>
                     </ul>
                 </div>
             </div>
