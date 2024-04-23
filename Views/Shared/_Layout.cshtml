@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-switch bg-switch border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar border-bottom box-shadow mb-3 bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Сlinic</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -37,10 +37,12 @@
                                 <div id="userMenu" style="cursor: pointer">
                                     <span class="nav-link theme-text-color" onclick="toggleMenu()">@User.Identity.Name</span>
                                 </div>
-                                <form id="logoutMenu" class="hidden" asp-controller="Account" asp-action="Logout" method="post">
-                                    <div id="theme-toggle" class="btn btn-sm btn-dark">Toggle Theme</div>
-                                    <button type="submit" class="btn btn-primary">Выйти</button>
-                                </form>
+                                <div id="logoutMenu" class="hidden bg-dark">
+                                    <form asp-controller="Account" asp-action="Logout" method="post" style="display: flex; flex-direction: column; flex-wrap: wrap;">
+                                        <button type="submit" class="btn btn-primary">Выйти</button>
+                                    </form>
+                                    <button id="theme-toggle" class="btn btn-sm btn-dark">Toggle Theme</button>
+                                </div>
                             }
                             else {
                                 <div>

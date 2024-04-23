@@ -45,9 +45,19 @@ function toggleTheme() {
 function applyTheme(theme) {
     // Применяем класс темы к body
     document.body.classList.toggle('dark-theme', theme === 'dark');
-
+    if(theme === "dark") toggleBgClasses('bg-light', 'bg-dark')
+    else toggleBgClasses('bg-dark', 'bg-light');
     // Сохраняем выбранную тему в localStorage
     localStorage.setItem('theme', theme);
+}
+
+// Функция для переключения классов фона
+function toggleBgClasses(oldClass, newClass) {
+    var elements = document.querySelectorAll('.' + oldClass);
+    elements.forEach(function(element) {
+        element.classList.remove(oldClass);
+        element.classList.add(newClass);
+    });
 }
 
 // Применяем сохраненную тему при загрузке страницы
@@ -60,6 +70,3 @@ if (savedTheme) {
 document.getElementById('theme-toggle').addEventListener('click', function() {
     toggleTheme();
 });
-
-
-
