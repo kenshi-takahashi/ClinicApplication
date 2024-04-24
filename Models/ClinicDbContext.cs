@@ -66,11 +66,13 @@ public partial class ClinicDbContext : DbContext
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.DoctorId)
-                .HasConstraintName("FK__Appointme__Docto__60A75C0F");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Appointments_Doctors");
 
             entity.HasOne(d => d.Patient).WithMany(p => p.Appointments)
                 .HasForeignKey(d => d.PatientId)
-                .HasConstraintName("FK__Appointme__Patie__619B8048");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Appointments_Patients");
         });
 
         modelBuilder.Entity<DisabilitySheet>(entity =>
@@ -90,7 +92,8 @@ public partial class ClinicDbContext : DbContext
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.DisabilitySheets)
                 .HasForeignKey(d => d.DoctorId)
-                .HasConstraintName("FK__Disabilit__Docto__5EBF139D");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Disability_Sheets_Doctors");
         });
 
         modelBuilder.Entity<District>(entity =>
@@ -105,7 +108,8 @@ public partial class ClinicDbContext : DbContext
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.Districts)
                 .HasForeignKey(d => d.DoctorId)
-                .HasConstraintName("FK__Districts__Docto__68487DD7");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Districts_Doctors");
         });
 
         modelBuilder.Entity<Doctor>(entity =>
@@ -129,11 +133,13 @@ public partial class ClinicDbContext : DbContext
 
             entity.HasOne(d => d.Registry).WithMany(p => p.Doctors)
                 .HasForeignKey(d => d.RegistryId)
-                .HasConstraintName("FK__Doctors__Departm__5CD6CB2B");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Doctors_Registry");
 
             entity.HasOne(d => d.Specialty).WithMany(p => p.Doctors)
                 .HasForeignKey(d => d.SpecialtyId)
-                .HasConstraintName("FK__Doctors__Special__5DCAEF64");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Doctors_DoctorSpecialties");
         });
 
         modelBuilder.Entity<DoctorSpecialty>(entity =>
@@ -164,7 +170,8 @@ public partial class ClinicDbContext : DbContext
 
             entity.HasOne(d => d.Patient).WithMany(p => p.MedicalDocuments)
                 .HasForeignKey(d => d.PatientId)
-                .HasConstraintName("FK__Medical_D__Patie__5FB337D6");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Medical_Documents_Patients");
         });
 
         modelBuilder.Entity<OutpatientCard>(entity =>
@@ -183,7 +190,8 @@ public partial class ClinicDbContext : DbContext
 
             entity.HasOne(d => d.Patient).WithMany(p => p.OutpatientCards)
                 .HasForeignKey(d => d.PatientId)
-                .HasConstraintName("FK__Outpatien__Patie__5BE2A6F2");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Outpatient_Cards_Patients");
         });
 
         modelBuilder.Entity<Patient>(entity =>
@@ -209,7 +217,7 @@ public partial class ClinicDbContext : DbContext
 
             entity.HasOne(d => d.District).WithMany(p => p.Patients)
                 .HasForeignKey(d => d.DistrictId)
-                .HasConstraintName("FK__Patients__Distri__628FA481");
+                .HasConstraintName("FK_Patients_Districts");
         });
 
         modelBuilder.Entity<ReasonsForVisit>(entity =>
@@ -226,7 +234,8 @@ public partial class ClinicDbContext : DbContext
 
             entity.HasOne(d => d.Patient).WithMany(p => p.ReasonsForVisits)
                 .HasForeignKey(d => d.PatientId)
-                .HasConstraintName("FK__Reasons_F__Patie__6383C8BA");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Reasons_For_Visit_Patients");
         });
 
         modelBuilder.Entity<RecordingMethod>(entity =>
@@ -262,7 +271,8 @@ public partial class ClinicDbContext : DbContext
 
             entity.HasOne(d => d.Registry).WithMany(p => p.Registrars)
                 .HasForeignKey(d => d.RegistryId)
-                .HasConstraintName("FK__Registrar__Regis__656C112C");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Registrars_Registry");
         });
 
         modelBuilder.Entity<Registry>(entity =>
@@ -291,7 +301,8 @@ public partial class ClinicDbContext : DbContext
 
             entity.HasOne(d => d.RecordingMethod).WithMany(p => p.Registries)
                 .HasForeignKey(d => d.RecordingMethodId)
-                .HasConstraintName("FK__Registry__Record__66603565");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Registry_Recording_Methods");
         });
 
         modelBuilder.Entity<Role>(entity =>
@@ -322,7 +333,8 @@ public partial class ClinicDbContext : DbContext
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.Schedules)
                 .HasForeignKey(d => d.DoctorId)
-                .HasConstraintName("FK__Schedule__Doctor__6477ECF3");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Schedule_Doctors");
         });
 
         modelBuilder.Entity<Ticket>(entity =>
@@ -338,7 +350,8 @@ public partial class ClinicDbContext : DbContext
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.DoctorId)
-                .HasConstraintName("FK__Tickets__Doctor___6754599E");
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Tickets_Doctors");
         });
 
         modelBuilder.Entity<User>(entity =>
