@@ -1,0 +1,30 @@
+@model Clinic.Models.DisabilitySheet
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Добавление нового листв нетрудоспособности</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="SheetNumber">Номер листа</label>
+        <input asp-for="SheetNumber" class="form-control" />
+        <span asp-validation-for="SheetNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IssueDate">Дата выдачи</label>
+        <input type="date" asp-for="IssueDate" class="form-control" />
+        <span asp-validation-for="IssueDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Doctor">ФИО Доктора</label>
+        <select asp-for="DoctorId" class="form-control">
+            @foreach (var doctor in ViewBag.Doctors)
+            {
+                <option value="@doctor.Id">@doctor.FullName</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+    <a href="@Url.Action("Index", "DisabilitySheet")" class="btn btn-secondary ml-2">Отмена</a>
+</form>

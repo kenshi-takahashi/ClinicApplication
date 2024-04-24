@@ -1,0 +1,61 @@
+@model IEnumerable<Clinic.Models.DisabilitySheet>
+
+@{
+    string GetSortArrow(string columnName)
+    {
+        if (ViewData["CurrentSort"] as string == columnName)
+        {
+            if ((string)ViewData["CurrentSort"] == "id_asc" || (string)ViewData["CurrentSort"] == "sheetnumber_asc" || (string)ViewData["CurrentSort"] == "doctor_asc" || (string)ViewData["CurrentSort"] == "date_asc")
+            {
+                return "▼";
+            }
+            else
+            {
+                return "▲";
+            }
+        }
+        else if (ViewData["CurrentSort"] as string == columnName.Replace("_asc", "_desc"))
+        {
+            return "▲";
+        }
+        return "";
+    }
+}
+
+<h1>Листы нетрудоспособности</h1>
+
+<p>
+    <form id="searchForm" asp-controller="DisabilitySheet" asp-action="Index" method="get">
+        <p>
+            <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
+        </p>
+    </form>
+    <a asp-action="Create">Добавить новый лист нетрудоспособности</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParam"]">Id @Html.Raw(GetSortArrow("id_asc"))</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["SheetNumberSortParam"]">Номер лсита @Html.Raw(GetSortArrow("sheetnumber_asc"))</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]">Дата выдачи @Html.Raw(GetSortArrow("date_asc"))</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["DoctorSortParam"]">ФИО Доктора @Html.Raw(GetSortArrow("doctor_asc"))</a></th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.SheetNumber</td>
+                <td>@item.IssueDate</td>
+                <td>@item.Doctor.MiddleName @item.Doctor.FirstName @item.Doctor.LastName</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Подробно</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

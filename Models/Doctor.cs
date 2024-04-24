@@ -30,4 +30,5 @@ public partial class Doctor
     public virtual DoctorSpecialty? Specialty { get; set; }
 
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+
 }

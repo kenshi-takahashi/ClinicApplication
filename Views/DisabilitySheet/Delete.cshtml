@@ -1,0 +1,36 @@
+@model Clinic.Models.DisabilitySheet
+
+<h1>Delete</h1>
+
+<h3>Вы уверены, что хотите удалить этот лист нетрудоспособности?</h3>
+<div>
+    <h4>Информация о листе нетрудоспособности</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Номер листа
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SheetNumber)
+        </dd>
+        <dt class="col-sm-2">
+            Дата выдачи
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IssueDate)
+        </dd>
+        <dt class="col-sm-2">
+            ФИО Доктора
+        </dt>
+        <dd class="col-sm-10">
+             @Html.DisplayFor(model => model.Doctor.MiddleName) @Html.DisplayFor(model => model.Doctor.FirstName) @Html.DisplayFor(model => model.Doctor.LastName)
+        </dd>
+        <!-- Display other properties as needed -->
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Удалить</button>
+        <a href="@Url.Action("Index", "DisabilitySheet")" class="btn btn-secondary ml-2">Отмена</a>
+    </form>
+</div>
