@@ -32,7 +32,7 @@ namespace Clinic.Controllers
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                doctors = doctors.Where(d => d.Id.ToString().Contains(searchString) || d.FirstName.Contains(searchString) || d.LastName.Contains(searchString) || d.MiddleName.Contains(searchString) || d.RegistryId.ToString().Contains(searchString) || d.SpecialtyId.ToString().Contains(searchString));
+                doctors = doctors.Where(d => d.Id.ToString().Contains(searchString) || d.FirstName.Contains(searchString) || d.LastName.Contains(searchString) || d.MiddleName.Contains(searchString) || d.Registry.DepartmentNumber.ToString().Contains(searchString) || d.Specialty.Name.ToString().Contains(searchString));
             }
 
             switch (sortOrder)
