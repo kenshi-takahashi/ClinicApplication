@@ -1,0 +1,114 @@
+@model IEnumerable<Clinic.Models.Patient>
+
+@{
+    ViewData["Title"] = "Index";
+    string GetSortArrow(string columnName)
+    {
+        if (ViewData["CurrentSort"] as string == columnName)
+        {
+            if ((string)ViewData["CurrentSort"] == "last_name_asc" || (string)ViewData["CurrentSort"] == "first_name_asc" || (string)ViewData["CurrentSort"] == "middle_name_asc" || (string)ViewData["CurrentSort"] == "birth_date_asc" || (string)ViewData["CurrentSort"] == "phone_asc" || (string)ViewData["CurrentSort"] == "address_asc" || (string)ViewData["CurrentSort"] == "address_asc")
+            {
+                return "▼"; // Стрелка вниз
+            }
+            else
+            {
+                return "▲"; // Стрелка вверх
+            }
+        }
+        else if (ViewData["CurrentSort"] as string == columnName.Replace("_asc", "_desc"))
+        {
+            return ""; // Стрелка вверх
+        }
+        return "";
+    }
+}
+
+<h2>Пациенты</h2>
+
+<p>
+    <a asp-action="Create">Добавить пациента</a>
+</p>
+<form id="searchForm" asp-controller="OutpatientCards" asp-action="Index" method="get">
+    <p>
+        <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["LastNameSortParam"]">
+                    @Html.DisplayNameFor(model => model.LastName)
+                    @Html.Raw(GetSortArrow("last_name_asc") + GetSortArrow("last_name_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["FirstNameSortParam"]">
+                    @Html.DisplayNameFor(model => model.FirstName)
+                    @Html.Raw(GetSortArrow("first_name_asc") + GetSortArrow("first_name_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["MiddleNameSortParam"]">
+                    @Html.DisplayNameFor(model => model.MiddleName)
+                    @Html.Raw(GetSortArrow("middle_name_asc") + GetSortArrow("middle_name_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["BirthDateSortParam"]">
+                    @Html.DisplayNameFor(model => model.BirthDate)
+                    @Html.Raw(GetSortArrow("birth_date_asc") + GetSortArrow("birth_date_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PhoneSortParam"]">
+                    @Html.DisplayNameFor(model => model.Phone)
+                    @Html.Raw(GetSortArrow("phone_asc") + GetSortArrow("phone_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AddressSortParam"]">
+                    @Html.DisplayNameFor(model => model.Address)
+                    @Html.Raw(GetSortArrow("address_asc") + GetSortArrow("address_desc"))
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.District.DistrictNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.District.DistrictNumber)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
