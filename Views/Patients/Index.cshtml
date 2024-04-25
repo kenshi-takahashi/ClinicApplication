@@ -6,7 +6,7 @@
     {
         if (ViewData["CurrentSort"] as string == columnName)
         {
-            if ((string)ViewData["CurrentSort"] == "last_name_asc" || (string)ViewData["CurrentSort"] == "first_name_asc" || (string)ViewData["CurrentSort"] == "middle_name_asc" || (string)ViewData["CurrentSort"] == "birth_date_asc" || (string)ViewData["CurrentSort"] == "phone_asc" || (string)ViewData["CurrentSort"] == "address_asc" || (string)ViewData["CurrentSort"] == "address_asc")
+            if ((string)ViewData["CurrentSort"] == "last_name_asc" || (string)ViewData["CurrentSort"] == "first_name_asc" || (string)ViewData["CurrentSort"] == "middle_name_asc" || (string)ViewData["CurrentSort"] == "birth_date_asc" || (string)ViewData["CurrentSort"] == "phone_asc" || (string)ViewData["CurrentSort"] == "address_asc" || (string)ViewData["CurrentSort"] == "address_asc" || (string)ViewData["CurrentSort"] == "district_asc")
             {
                 return "▼"; // Стрелка вниз
             }
@@ -28,7 +28,7 @@
 <p>
     <a asp-action="Create">Добавить пациента</a>
 </p>
-<form id="searchForm" asp-controller="OutpatientCards" asp-action="Index" method="get">
+<form id="searchForm" asp-controller="Patients" asp-action="Index" method="get">
     <p>
         <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
     </p>
@@ -38,46 +38,50 @@
         <tr>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["LastNameSortParam"]">
-                    @Html.DisplayNameFor(model => model.LastName)
+                    Фамилия
                     @Html.Raw(GetSortArrow("last_name_asc") + GetSortArrow("last_name_desc"))
                 </a>
             </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["FirstNameSortParam"]">
-                    @Html.DisplayNameFor(model => model.FirstName)
+                    Имя
                     @Html.Raw(GetSortArrow("first_name_asc") + GetSortArrow("first_name_desc"))
                 </a>
             </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["MiddleNameSortParam"]">
-                    @Html.DisplayNameFor(model => model.MiddleName)
+                    Отчество
                     @Html.Raw(GetSortArrow("middle_name_asc") + GetSortArrow("middle_name_desc"))
                 </a>
             </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["BirthDateSortParam"]">
-                    @Html.DisplayNameFor(model => model.BirthDate)
+                    Дата рождения
                     @Html.Raw(GetSortArrow("birth_date_asc") + GetSortArrow("birth_date_desc"))
                 </a>
             </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["PhoneSortParam"]">
-                    @Html.DisplayNameFor(model => model.Phone)
+                    Телефон
                     @Html.Raw(GetSortArrow("phone_asc") + GetSortArrow("phone_desc"))
                 </a>
             </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["AddressSortParam"]">
-                    @Html.DisplayNameFor(model => model.Address)
+                    Адрес
                     @Html.Raw(GetSortArrow("address_asc") + GetSortArrow("address_desc"))
                 </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.District.DistrictNumber)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DistrictSortParam"]">
+                    Район
+                    @Html.Raw(GetSortArrow("district_asc") + GetSortArrow("district_desc"))
+                </a>
             </th>
-            <th></th>
+            <th>Действия</th>
         </tr>
     </thead>
+
     <tbody>
         @foreach (var item in Model)
         {

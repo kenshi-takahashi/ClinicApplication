@@ -21,40 +21,39 @@ namespace Clinic.Controllers
         public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["CurrentSort"] = sortOrder;
-            ViewData["FirstNameSortParam"] = sortOrder == "first_name_asc" ? "first_name_desc" : "first_name_asc";
             ViewData["LastNameSortParam"] = sortOrder == "last_name_asc" ? "last_name_desc" : "last_name_asc";
+            ViewData["FirstNameSortParam"] = sortOrder == "first_name_asc" ? "first_name_desc" : "first_name_asc";
             ViewData["MiddleNameSortParam"] = sortOrder == "middle_name_asc" ? "middle_name_desc" : "middle_name_asc";
-            ViewData["AddressSortParam"] = sortOrder == "address_asc" ? "address_desc" : "address_asc";
             ViewData["BirthDateSortParam"] = sortOrder == "birth_date_asc" ? "birth_date_desc" : "birth_date_asc";
             ViewData["PhoneSortParam"] = sortOrder == "phone_asc" ? "phone_desc" : "phone_asc";
+            ViewData["AddressSortParam"] = sortOrder == "address_asc" ? "address_desc" : "address_asc";
+            ViewData["DistrictSortParam"] = sortOrder == "district_asc" ? "district_desc" : "district_asc";
 
             var patients = _context.Patients
-            .Include(p => p.District)
-            .AsNoTracking();
+                .Include(p => p.District)
+                .AsNoTracking();
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 patients = patients.Where(p =>
-                p.FirstName.Contains(searchString) ||
-                p.LastName.Contains(searchString) ||
-                p.MiddleName.Contains(searchString) ||
-                p.Address.Contains(searchString) ||
-                p.Phone.Contains(searchString));
+                    p.FirstName.Contains(searchString) ||
+                    p.LastName.Contains(searchString) ||
+                    p.MiddleName.Contains(searchString) ||
+                    p.Address.Contains(searchString) ||
+                    p.Phone.Contains(searchString) ||
+                    p.District.DistrictNumber.ToString().Contains(searchString));
             }
 
             switch (sortOrder)
             {
-                case "first_name_desc":
-                    patients = patients.OrderByDescending(p => p.FirstName);
-                    break;
                 case "last_name_desc":
                     patients = patients.OrderByDescending(p => p.LastName);
                     break;
+                case "first_name_desc":
+                    patients = patients.OrderByDescending(p => p.FirstName);
+                    break;
                 case "middle_name_desc":
                     patients = patients.OrderByDescending(p => p.MiddleName);
-                    break;
-                case "address_desc":
-                    patients = patients.OrderByDescending(p => p.Address);
                     break;
                 case "birth_date_desc":
                     patients = patients.OrderByDescending(p => p.BirthDate);
@@ -62,23 +61,32 @@ namespace Clinic.Controllers
                 case "phone_desc":
                     patients = patients.OrderByDescending(p => p.Phone);
                     break;
-                case "first_name_asc":
-                    patients = patients.OrderBy(p => p.FirstName);
+                case "address_desc":
+                    patients = patients.OrderByDescending(p => p.Address);
+                    break;
+                case "district_desc":
+                    patients = patients.OrderByDescending(p => p.District.DistrictNumber);
                     break;
                 case "last_name_asc":
                     patients = patients.OrderBy(p => p.LastName);
                     break;
+                case "first_name_asc":
+                    patients = patients.OrderBy(p => p.FirstName);
+                    break;
                 case "middle_name_asc":
                     patients = patients.OrderBy(p => p.MiddleName);
-                    break;
-                case "address_asc":
-                    patients = patients.OrderBy(p => p.Address);
                     break;
                 case "birth_date_asc":
                     patients = patients.OrderBy(p => p.BirthDate);
                     break;
                 case "phone_asc":
                     patients = patients.OrderBy(p => p.Phone);
+                    break;
+                case "address_asc":
+                    patients = patients.OrderBy(p => p.Address);
+                    break;
+                case "district_asc":
+                    patients = patients.OrderBy(p => p.District.DistrictNumber);
                     break;
                 default:
                     patients = patients.OrderBy(p => p.LastName);
@@ -87,6 +95,7 @@ namespace Clinic.Controllers
 
             return View(await patients.ToListAsync());
         }
+
 
         // GET: Patients/Details/5
         public async Task<IActionResult> Details(int? id)
