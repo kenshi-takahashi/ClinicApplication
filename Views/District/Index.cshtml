@@ -1,0 +1,60 @@
+@model IEnumerable<Clinic.Models.District>
+
+@{
+    string GetSortArrow(string columnName)
+    {
+        if (ViewData["CurrentSort"] as string == columnName)
+        {
+            if ((string)ViewData["CurrentSort"] == "id_asc" || (string)ViewData["CurrentSort"] == "districtnumber_asc" || (string)ViewData["CurrentSort"] == "doctor_asc")
+            {
+                return "▼";
+            }
+            else
+            {
+                return "▲";
+            }
+        }
+        else if (ViewData["CurrentSort"] as string == columnName.Replace("_asc", "_desc"))
+        {
+            return "▲";
+        }
+        return "";
+    }
+}
+
+<h1>Районы</h1>
+
+<p>
+    <form id="searchForm" asp-controller="District" asp-action="Index" method="get">
+        <p>
+            <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
+        </p>
+    </form>
+    <a asp-action="Create">Добавить новый район</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParam"]">ID @Html.Raw(GetSortArrow("id_asc"))</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["DistrictNumberSortParam"]">Номер района @Html.Raw(GetSortArrow("districtnumber_asc"))</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["DoctorSortParam"]">ФИО врача @Html.Raw(GetSortArrow("doctor_asc"))</a></th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var district in Model)
+        {
+            <tr>
+                <td>@district.Id</td>
+                <td>@district.DistrictNumber</td>
+                <td>@($"{district.Doctor.LastName} {district.Doctor.FirstName} {district.Doctor.MiddleName}")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@district.Id">Редактировать</a> |
+                    <a asp-action="Delete" asp-route-id="@district.Id">Удалить</a> |
+                    <a asp-action="Details" asp-route-id="@district.Id">Подробно</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

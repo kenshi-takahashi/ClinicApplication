@@ -1,0 +1,30 @@
+@model Clinic.Models.District
+
+<h1>Удаление района</h1>
+
+<h3>Вы уверены, что хотите удалить этот район?</h3>
+<div>
+    <h4>Информация о районе</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Номер района
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DistrictNumber)
+        </dd>
+        <dt class="col-sm-2">
+            ФИО Доктора
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.LastName) @Html.DisplayFor(model => model.Doctor.FirstName) @Html.DisplayFor(model => model.Doctor.MiddleName)
+        </dd>
+        <!-- Display other properties as needed -->
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Удалить</button>
+        <a href="@Url.Action("Index", "District")" class="btn btn-secondary ml-2">Отмена</a>
+    </form>
+</div>
