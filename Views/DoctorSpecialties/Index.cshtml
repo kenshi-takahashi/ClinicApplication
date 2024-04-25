@@ -1,0 +1,65 @@
+@model IEnumerable<Clinic.Models.DoctorSpecialty>
+
+@{
+    string GetSortArrow(string columnName)
+    {
+        if (ViewData["CurrentSort"] as string == columnName)
+        {
+            if ((string)ViewData["CurrentSort"] == "name_asc" || (string)ViewData["CurrentSort"] == "description_asc")
+            {
+                return "▼"; // Стрелка вниз
+            }
+            else
+            {
+                return "▲"; // Стрелка вверх
+            }
+        }
+        else if (ViewData["CurrentSort"] as string == columnName.Replace("_asc", "_desc"))
+        {
+            return "▲"; // Стрелка вверх
+        }
+        return "";
+    }
+}
+
+<h1>Специальзации докторов</h1>
+
+<p>
+    <a asp-action="Create">Добавить новую специальзацию</a>
+</p>
+<form id="searchForm" asp-controller="DoctorSpecialties" asp-action="Index" method="get">
+    <p>
+        <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]">Название специальзации @Html.Raw(GetSortArrow("name_asc"))</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DescriptionSortParam"]">Описание специальзации @Html.Raw(GetSortArrow("description_asc"))</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Детали</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
