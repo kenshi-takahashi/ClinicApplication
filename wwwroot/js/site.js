@@ -2,11 +2,27 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-    function toggleMenu() {
-        var menu = document.getElementById("logoutMenu");
-        menu.classList.toggle("hidden");
-        menu.classList.toggle("visible");
-    }
+function toggleMenu() {
+    var menu = document.getElementById("logoutMenu");
+    var userMenu = document.getElementById("userMenu");
+    
+    // Добавляем обработчик клика на весь документ
+    document.addEventListener("click", function(event) {
+        var isClickInsideMenu = menu.contains(event.target);
+        var isClickInsideUserMenu = userMenu.contains(event.target);
+
+        if (!isClickInsideMenu && !isClickInsideUserMenu) {
+            menu.classList.add("hidden");
+            menu.classList.remove("visible");
+        }
+    });
+    
+    // Переключаем классы видимости меню
+    menu.classList.toggle("hidden");
+    menu.classList.toggle("visible");
+}
+
+
 
     $(document).ready(function () {
         $('#searchInput').on('input', function () {
