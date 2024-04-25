@@ -5,12 +5,12 @@
 <form asp-action="Create">
     <div class="form-group">
         <label asp-for="Name" class="control-label">Название специальзации</label>
-        <input asp-for="Name" class="form-control"/>
+        <input asp-for="Name" class="form-control" required/>
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Description" class="control-label">Описание специальзации</label>
-        <input asp-for="Description" class="form-control" />
+        <input asp-for="Description" class="form-control" required/>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group">

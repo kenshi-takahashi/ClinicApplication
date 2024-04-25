@@ -30,4 +30,6 @@ public partial class Patient
     public virtual ICollection<OutpatientCard> OutpatientCards { get; set; } = new List<OutpatientCard>();
 
     public virtual ICollection<ReasonsForVisit> ReasonsForVisits { get; set; } = new List<ReasonsForVisit>();
+
+    public string FullName => $"{MiddleName} {FirstName} {LastName}";
 }

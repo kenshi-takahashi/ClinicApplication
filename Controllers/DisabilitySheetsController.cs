@@ -42,10 +42,10 @@ namespace Clinic.Controllers
                     disabilitySheets = disabilitySheets.OrderByDescending(ds => ds.SheetNumber);
                     break;
                 case "doctor_asc":
-                    disabilitySheets = disabilitySheets.OrderBy(ds => ds.Doctor.LastName).ThenBy(ds => ds.Doctor.FirstName).ThenBy(ds => ds.Doctor.MiddleName);
+                    disabilitySheets = disabilitySheets.OrderBy(ds => ds.Doctor.MiddleName).ThenBy(ds => ds.Doctor.FirstName).ThenBy(ds => ds.Doctor.LastName);
                     break;
                 case "doctor_desc":
-                    disabilitySheets = disabilitySheets.OrderByDescending(ds => ds.Doctor.LastName).ThenByDescending(ds => ds.Doctor.FirstName).ThenByDescending(ds => ds.Doctor.MiddleName);
+                    disabilitySheets = disabilitySheets.OrderByDescending(ds => ds.Doctor.MiddleName).ThenByDescending(ds => ds.Doctor.FirstName).ThenByDescending(ds => ds.Doctor.LastName);
                     break;
                 case "date_asc":
                     disabilitySheets = disabilitySheets.OrderBy(ds => ds.IssueDate);

@@ -43,10 +43,10 @@ namespace Clinic.Controllers
                     districts = districts.OrderByDescending(d => d.DistrictNumber);
                     break;
                 case "doctor_asc":
-                    districts = districts.OrderBy(d => d.Doctor.LastName).ThenBy(d => d.Doctor.FirstName).ThenBy(d => d.Doctor.MiddleName);
+                    districts = districts.OrderBy(d => d.Doctor.MiddleName).ThenBy(d => d.Doctor.FirstName).ThenBy(d => d.Doctor.LastName);
                     break;
                 case "doctor_desc":
-                    districts = districts.OrderByDescending(d => d.Doctor.LastName).ThenByDescending(d => d.Doctor.FirstName).ThenByDescending(d => d.Doctor.MiddleName);
+                    districts = districts.OrderByDescending(d => d.Doctor.MiddleName).ThenByDescending(d => d.Doctor.FirstName).ThenByDescending(d => d.Doctor.LastName);
                     break;
                 case "id_desc":
                     districts = districts.OrderByDescending(d => d.Id);
