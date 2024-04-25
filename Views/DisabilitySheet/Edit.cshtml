@@ -1,17 +1,17 @@
 @model Clinic.Models.DisabilitySheet
 
-<h1>Редактировать информацию о листе нетрудоспособности</h1>
+<h1>Редактирование информации о листе нетрудоспособности</h1>
 
 <form asp-action="Edit">
     <input type="hidden" asp-for="Id" />
     <div class="form-group">
         <label asp-for="SheetNumber">Номер листа нетрудоспособности</label>
-        <input asp-for="SheetNumber" class="form-control" />
+        <input asp-for="SheetNumber" class="form-control" required/>
         <span asp-validation-for="SheetNumber" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="IssueDate">Дата выдачи</label>
-        <input asp-for="IssueDate" class="form-control" />
+        <input asp-for="IssueDate" class="form-control" required/>
         <span asp-validation-for="IssueDate" class="text-danger"></span>
     </div>
     <div class="form-group">
