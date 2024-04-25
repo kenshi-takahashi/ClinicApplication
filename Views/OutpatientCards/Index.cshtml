@@ -1,0 +1,66 @@
+@model List<Clinic.Models.OutpatientCard>
+
+@{
+    ViewData["Title"] = "Index";
+    string GetSortArrow(string columnName)
+    {
+        if (ViewData["CurrentSort"] as string == columnName)
+        {
+            if ((string)ViewData["CurrentSort"] == "card_number_asc" || (string)ViewData["CurrentSort"] == "patient_asc")
+            {
+                return "▼"; // Стрелка вниз
+            }
+            else
+            {
+                return "▲"; // Стрелка вверх
+            }
+        }
+        else if (ViewData["CurrentSort"] as string == columnName.Replace("_asc", "_desc"))
+        {
+            return "▲"; // Стрелка вверх
+        }
+        return "";
+    }
+}
+
+<h1>Амбулаторные карты</h1>
+
+<p>
+    <a asp-action="Create">Добавить амбулаторную карту</a>
+</p>
+<form id="searchForm" asp-controller="OutpatientCards" asp-action="Index" method="get">
+    <p>
+        <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CardNumberSortParam"]">Номер карты @Html.Raw(GetSortArrow("card_number_asc"))</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PatientSortParam"]">Пациент @Html.Raw(GetSortArrow("patient_asc"))</a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.CardNumber
+                </td>
+                <td>
+                    @item.Patient.MiddleName @item.Patient.FirstName @item.Patient.LastName
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
