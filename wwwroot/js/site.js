@@ -52,8 +52,10 @@ function toggleTheme() {
     // Если текущая тема - светлая, то переключаем на темную, и наоборот
     if (currentTheme === 'light') {
         applyTheme('dark');
+        updateTableStyles('dark');
     } else {
         applyTheme('light');
+        updateTableStyles('light');
     }
 }
 
@@ -61,7 +63,9 @@ function toggleTheme() {
 function applyTheme(theme) {
     // Применяем класс темы к body
     document.body.classList.toggle('dark-theme', theme === 'dark');
-    if(theme === "dark") toggleBgClasses('bg-light', 'bg-dark')
+    if(theme === "dark") {
+        toggleBgClasses('bg-light', 'bg-dark')
+    }
     else toggleBgClasses('bg-dark', 'bg-light');
     // Сохраняем выбранную тему в localStorage
     localStorage.setItem('theme', theme);
@@ -76,10 +80,30 @@ function toggleBgClasses(oldClass, newClass) {
     });
 }
 
+// Функция для обновления стилей таблиц при смене темы
+function updateTableStyles(theme) {
+  var tables = document.getElementsByTagName('table');
+
+  for (var i = 0; i < tables.length; i++) {
+    var table = tables[i];
+
+    // Удаляем старые классы
+    table.classList.remove('table-dark', 'table-light');
+
+    // Добавляем новые классы в зависимости от темы
+    if (theme === 'dark') {
+      table.classList.add('table-dark', 'table-striped', 'table-hover', 'table-bordered');
+    } else {
+      table.classList.add('table-light', 'table-striped', 'table-hover', 'table-bordered');
+    }
+  }
+}
+
 // Применяем сохраненную тему при загрузке страницы
 var savedTheme = localStorage.getItem('theme');
 if (savedTheme) {
     applyTheme(savedTheme);
+    updateTableStyles(savedTheme);
 }
 
 // Обработчик события для кнопки переключения темы
