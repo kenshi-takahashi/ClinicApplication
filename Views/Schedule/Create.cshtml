@@ -1,0 +1,38 @@
+@model Clinic.Models.Schedule
+
+@{
+    ViewData["Title"] = "Создание расписания";
+}
+
+<h2>Создание расписания</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="DoctorId" class="control-label">Доктор</label>
+        <select asp-for="DoctorId" class="form-control" asp-items="ViewBag.DoctorId"></select>
+        <span asp-validation-for="DoctorId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DayOfWeek" class="control-label">День недели</label>
+        <input asp-for="DayOfWeek" class="form-control" />
+        <span asp-validation-for="DayOfWeek" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StartTime" class="control-label">Начало приёма</label>
+        <input asp-for="StartTime" class="form-control" />
+        <span asp-validation-for="StartTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EndTime" class="control-label">Конец приёма</label>
+        <input asp-for="EndTime" class="form-control" />
+        <span asp-validation-for="EndTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Создать" class="btn btn-primary" />
+        <a href="@Url.Action("Index", "Schedule")" class="btn btn-secondary">Отмена</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

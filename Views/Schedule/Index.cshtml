@@ -1,0 +1,91 @@
+@model IEnumerable<Clinic.Models.Schedule>
+
+@{
+    ViewData["Title"] = "Расписания";
+    string GetSortArrow(string columnName)
+    {
+        if (ViewData["CurrentSort"] as string == columnName)
+        {
+            if ((string)ViewData["CurrentSort"] == "doctor_asc" || (string)ViewData["CurrentSort"] == "dayofweek_asc" || (string)ViewData["CurrentSort"] == "starttime_asc" || (string)ViewData["CurrentSort"] == "endtime_asc")
+            {
+                return "▼"; // Стрелка вниз
+            }
+            else
+            {
+                return "▲"; // Стрелка вверх
+            }
+        }
+        else if (ViewData["CurrentSort"] as string == columnName.Replace("_asc", "_desc"))
+        {
+            return ""; // Стрелка вверх
+        }
+        return "";
+    }
+}
+
+<h2>Расписания</h2>
+
+<p>
+    <a asp-action="Create">Добавить расписание</a>
+</p>
+<form id="searchForm" asp-controller="Schedule" asp-action="Index" method="get">
+    <p>
+        <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DoctorSortParam"]">
+                    Доктор
+                    @Html.Raw(GetSortArrow("doctor_asc") + GetSortArrow("doctor_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DayOfWeekSortParam"]">
+                    День недели
+                    @Html.Raw(GetSortArrow("dayofweek_asc") + GetSortArrow("dayofweek_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["StartTimeSortParam"]">
+                    Начало приёма
+                    @Html.Raw(GetSortArrow("starttime_asc") + GetSortArrow("starttime_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["EndTimeSortParam"]">
+                    Конец приёма
+                    @Html.Raw(GetSortArrow("endtime_asc") + GetSortArrow("endtime_desc"))
+                </a>
+            </th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Doctor.LastName) @Html.DisplayFor(modelItem => item.Doctor.FirstName) @Html.DisplayFor(modelItem => item.Doctor.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DayOfWeek)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
