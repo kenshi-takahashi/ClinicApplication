@@ -33,8 +33,11 @@ namespace Clinic.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
                 tickets = tickets.Where(t =>
-                    t.Doctor.FullName.Contains(searchString) ||
-                    t.Doctor.Specialty.Name.Contains(searchString));
+                    t.Doctor.LastName.Contains(searchString) ||
+                    t.Doctor.FirstName.Contains(searchString) ||
+                    t.Doctor.MiddleName.Contains(searchString) ||
+                    t.Doctor.Specialty.Name.Contains(searchString) ||
+                    t.AppointmentDate.HasValue && t.AppointmentDate.Value.ToString().Contains(searchString));
             }
 
             switch (sortOrder)
