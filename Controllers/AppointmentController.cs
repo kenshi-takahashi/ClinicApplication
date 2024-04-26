@@ -21,7 +21,7 @@ namespace Clinic.Controllers
 
         // GET: Appointment
         [HttpGet]
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, bool? filterDescription, string selectedDescription, bool? filterDoctor, int? selectedDoctor, bool? filterPatient, int? selectedPatient, int page = 1)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["IdSortParam"] = string.IsNullOrEmpty(sortOrder) || sortOrder == "id_asc" ? "id_desc" : "id_asc";
@@ -29,11 +29,30 @@ namespace Clinic.Controllers
             ViewData["DoctorSortParam"] = sortOrder == "doctor_asc" ? "doctor_desc" : "doctor_asc";
             ViewData["PatientSortParam"] = sortOrder == "patient_asc" ? "patient_desc" : "patient_asc";
 
+            ViewBag.Descriptions = _context.Appointments.Select(a => a.Description).Distinct().ToList();
+            ViewBag.Doctors = _context.Doctors.Select(d => new { Id = d.Id, FullName = $"{d.LastName} {d.FirstName} {d.MiddleName}" }).ToList();
+            ViewBag.Patients = _context.Patients.Select(p => new { Id = p.Id, FullName = $"{p.LastName} {p.FirstName} {p.MiddleName}" }).ToList();
+
             IQueryable<Appointment> appointments = _context.Appointments.Include(a => a.Doctor).Include(a => a.Patient);
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 appointments = appointments.Where(a => a.Id.ToString().Contains(searchString) || a.Description.Contains(searchString) || (a.Doctor.LastName + " " + a.Doctor.FirstName + " " + a.Doctor.MiddleName).Contains(searchString) ||(a.Patient.LastName + " " + a.Patient.FirstName + " " + a.Patient.MiddleName).Contains(searchString));
+            }
+
+            if (filterDescription == true && !string.IsNullOrEmpty(selectedDescription))
+            {
+                appointments = appointments.Where(a => a.Description == selectedDescription);
+            }
+
+            if (filterDoctor == true && selectedDoctor.HasValue)
+            {
+                appointments = appointments.Where(a => a.DoctorId == selectedDoctor.Value);
+            }
+
+            if (filterPatient == true && selectedPatient.HasValue)
+            {
+                appointments = appointments.Where(a => a.PatientId == selectedPatient.Value);
             }
 
             switch (sortOrder)
@@ -63,7 +82,9 @@ namespace Clinic.Controllers
                     appointments = appointments.OrderBy(a => a.Id);
                     break;
             }
-
+            int appointmentsCount = await appointments.CountAsync();
+            ViewBag.AppointmentsCount = appointmentsCount;
+            
             List<Appointment> appointmentList = await appointments.ToListAsync();
             return View(appointmentList);
         }

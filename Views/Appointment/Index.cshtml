@@ -22,19 +22,62 @@
     }
 }
 
-<h1>Список встреч</h1>
-
-<div>
-    <form id="searchForm" asp-controller="Appointment" asp-action="Index" method="get">
-        <p>
-            <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
-        </p>
-    </form>
-    @if (User.IsInRole("admin"))
-    {
-        <a asp-action="Create">Создать новую запись</a>
-    }
+<div class="row">
+    <div class="col-md-12">
+        <h1>Список встреч</h1>
+    </div>
 </div>
+    <div>
+        <form id="searchForm" asp-controller="Appointment" asp-action="Index" method="get" class="form-inline">
+            <div class="form-group">
+                <label for="searchInput" class="mr-2">Поиск</label>
+                <input id="searchInput" type="text" name="searchString" placeholder="Введите текст для поиска" class="form-control mr-2">
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="filterDescription" value="true" class="form-check-input">
+                <label class="form-check-label mr-2">Описание</label>
+                <select name="selectedDescription" class="form-control mr-2">
+                    <option value="">Выберите описание</option>
+                    @foreach (var description in ViewBag.Descriptions)
+                    {
+                        <option value="@description">@description</option>
+                    }
+                </select>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="filterDoctor" value="true" class="form-check-input">
+                <label class="form-check-label mr-2">ФИО врача</label>
+                <select name="selectedDoctor" class="form-control mr-2">
+                    <option value="">Выберите врача</option>
+                    @foreach (var doctor in ViewBag.Doctors)
+                    {
+                        <option value="@doctor.Id">@doctor.FullName</option>
+                    }
+                </select>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="filterPatient" value="true" class="form-check-input">
+                <label class="form-check-label mr-2">ФИО пациента</label>
+                <select name="selectedPatient" class="form-control mr-2">
+                    <option value="">Выберите пациента</option>
+                    @foreach (var patient in ViewBag.Patients)
+                    {
+                        <option value="@patient.Id">@patient.FullName</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Применить фильтры</button>
+        </form>
+        <p>Найдено записей: @ViewBag.AppointmentsCount</p>
+    </div>
+    <div class="col-md-9" style="margin-top: 10px; margin-bottom: 10px;">
+        @if (User.IsInRole("admin"))
+        {
+            <a asp-action="Create" class="btn btn-primary">Создать новую запись</a>
+        }
+    </div>
+
+
 <table class="table">
     <thead>
         <tr>
