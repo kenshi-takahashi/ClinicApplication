@@ -29,7 +29,7 @@
 </div>
     <div>
         <form id="searchForm" asp-controller="Appointment" asp-action="Index" method="get" class="form-inline">
-            <div class="form-group">
+            <div class="form-group" style="margin-bottom: 10px;">
                 <label for="searchInput" class="mr-2">Поиск</label>
                 <input id="searchInput" type="text" name="searchString" placeholder="Введите текст для поиска" class="form-control mr-2">
             </div>
@@ -37,7 +37,6 @@
                 <input type="checkbox" name="filterDescription" value="true" class="form-check-input">
                 <label class="form-check-label mr-2">Описание</label>
                 <select name="selectedDescription" class="form-control mr-2">
-                    <option value="">Выберите описание</option>
                     @foreach (var description in ViewBag.Descriptions)
                     {
                         <option value="@description">@description</option>
@@ -48,7 +47,6 @@
                 <input type="checkbox" name="filterDoctor" value="true" class="form-check-input">
                 <label class="form-check-label mr-2">ФИО врача</label>
                 <select name="selectedDoctor" class="form-control mr-2">
-                    <option value="">Выберите врача</option>
                     @foreach (var doctor in ViewBag.Doctors)
                     {
                         <option value="@doctor.Id">@doctor.FullName</option>
@@ -59,7 +57,6 @@
                 <input type="checkbox" name="filterPatient" value="true" class="form-check-input">
                 <label class="form-check-label mr-2">ФИО пациента</label>
                 <select name="selectedPatient" class="form-control mr-2">
-                    <option value="">Выберите пациента</option>
                     @foreach (var patient in ViewBag.Patients)
                     {
                         <option value="@patient.Id">@patient.FullName</option>

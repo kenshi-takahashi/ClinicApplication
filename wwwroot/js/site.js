@@ -23,7 +23,7 @@ function toggleMenu() {
 }
 
 
-
+    //поиск
     $(document).ready(function () {
         $('#searchInput').on('input', function () {
             var searchString = $(this).val().toLowerCase();
@@ -34,7 +34,7 @@ function toggleMenu() {
             $.ajax({
                 url: actionUrl,
                 type: method,
-                data: form.serialize(), // Сериализуем все данные формы
+                data: form.serialize(),
                 success: function (data) {
                     var newTBody = $(data).find('tbody');
                     $('tbody').replaceWith(newTBody);
