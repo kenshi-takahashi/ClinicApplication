@@ -1,0 +1,33 @@
+@model Clinic.Models.Ticket
+
+@{
+    ViewData["Title"] = "Создание талона";
+}
+
+<h2>Создание талона</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="DoctorId" class="control-label">Врач</label>
+        <select asp-for="DoctorId" class="form-control" asp-items="ViewBag.DoctorId"></select>
+        <span asp-validation-for="DoctorId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AppointmentDate" class="control-label">Дата приема</label>
+        <input asp-for="AppointmentDate" type="date" class="form-control" />
+        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AppointmentTime" class="control-label">Время приема</label>
+        <input asp-for="AppointmentTime" type="time" class="form-control" />
+        <span asp-validation-for="AppointmentTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Создать" class="btn btn-primary" />
+        <a href="@Url.Action("Index", "Tickets")" class="btn btn-secondary">Отмена</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
