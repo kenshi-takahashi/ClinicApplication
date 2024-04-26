@@ -1,0 +1,151 @@
+@model IEnumerable<Clinic.Models.Registry>
+
+@{
+    ViewData["Title"] = "Index";
+    string GetSortArrow(string columnName)
+    {
+        if (ViewData["CurrentSort"] as string == columnName)
+        {
+            if ((string)ViewData["CurrentSort"] == "subdivision_asc" || (string)ViewData["CurrentSort"] == "department_asc" || (string)ViewData["CurrentSort"] == "head_asc" || (string)ViewData["CurrentSort"] == "organization_asc" || (string)ViewData["CurrentSort"] == "street_asc" || (string)ViewData["CurrentSort"] == "house_asc" || (string)ViewData["CurrentSort"] == "city_asc" || (string)ViewData["CurrentSort"] == "recording_asc")
+            {
+                return "▼"; // Стрелка вниз
+            }
+            else
+            {
+                return "▲"; // Стрелка вверх
+            }
+        }
+        else if (ViewData["CurrentSort"] as string == columnName.Replace("_asc", "_desc"))
+        {
+            return ""; // Стрелка вверх
+        }
+        return "";
+    }
+}
+
+<style>
+    /* Добавьте этот код в секцию <style> в вашем файле */
+
+    .table-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .table-registry {
+        width: 100%;
+    }
+
+    .table-registry td,
+    .table-registry th {
+        white-space: nowrap; /* Запретить перенос строк */
+        min-width: 150px; /* Минимальная ширина ячейки */
+        max-width: 300px; /* Максимальная ширина ячейки */
+        text-overflow: ellipsis; /* Отображать многоточие, если текст не помещается */
+        overflow: hidden; /* Скрывать текст, выходящий за пределы ячейки */
+    }
+</style>
+
+
+<h2>Регистратура</h2>
+
+<p>
+    <a asp-action="Create">Добавить регистратуру</a>
+</p>
+<form id="searchForm" asp-controller="Registry" asp-action="Index" method="get">
+    <p>
+        <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
+    </p>
+</form>
+<div class="table-container">
+<table class="table table-light table-striped table-hover table-bordered table-registry">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["SubdivisionNameSortParam"]">
+                    Название подразделения
+                    @Html.Raw(GetSortArrow("subdivision_asc") + GetSortArrow("subdivision_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DepartmentNumberSortParam"]">
+                    Номер отделения
+                    @Html.Raw(GetSortArrow("department_asc") + GetSortArrow("department_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["HeadSortParam"]">
+                    Глава
+                    @Html.Raw(GetSortArrow("head_asc") + GetSortArrow("head_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["OrganizationTypeSortParam"]">
+                    Тип организации
+                    @Html.Raw(GetSortArrow("organization_asc") + GetSortArrow("organization_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["StreetSortParam"]">
+                    Улица
+                    @Html.Raw(GetSortArrow("street_asc") + GetSortArrow("street_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["HouseNumberSortParam"]">
+                    Номер дома
+                    @Html.Raw(GetSortArrow("house_asc") + GetSortArrow("house_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CitySortParam"]">
+                    Город
+                    @Html.Raw(GetSortArrow("city_asc") + GetSortArrow("city_desc"))
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["RecordingMethodSortParam"]">
+                    Метод записи
+                    @Html.Raw(GetSortArrow("recording_asc") + GetSortArrow("recording_desc"))
+                </a>
+            </th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubdivisionName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Head)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrganizationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HouseNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RecordingMethod.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

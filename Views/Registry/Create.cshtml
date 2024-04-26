@@ -1,0 +1,61 @@
+@model Clinic.Models.Registry
+
+@{
+    ViewData["Title"] = "Создание реестра";
+}
+
+<h2>Создание регистратуры</h2>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="SubdivisionName" class="control-label">Название подразделения</label>
+        <input asp-for="SubdivisionName" class="form-control" />
+        <span asp-validation-for="SubdivisionName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DepartmentNumber" class="control-label">Номер отделения</label>
+        <input asp-for="DepartmentNumber" class="form-control" />
+        <span asp-validation-for="DepartmentNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Head" class="control-label">Глава</label>
+        <input asp-for="Head" class="form-control" />
+        <span asp-validation-for="Head" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="OrganizationType" class="control-label">Тип организации</label>
+        <select asp-for="OrganizationType" class="form-control">
+            <option value="Клинника">Клинника</option>
+            <option value="Госпиталь">Госпиталь</option>
+        </select>
+        <span asp-validation-for="OrganizationType" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Street" class="control-label">Улица</label>
+        <input asp-for="Street" class="form-control" />
+        <span asp-validation-for="Street" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="HouseNumber" class="control-label">Номер дома</label>
+        <input asp-for="HouseNumber" class="form-control" />
+        <span asp-validation-for="HouseNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="City" class="control-label">Город</label>
+        <input asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="RecordingMethodId" class="control-label">Метод записи</label>
+        <select asp-for="RecordingMethodId" class="form-control" asp-items="ViewBag.RecordingMethodId"></select>
+        <span asp-validation-for="RecordingMethodId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Создать" class="btn btn-primary" />
+        <a href="@Url.Action("Index", "Registry")" class="btn btn-secondary">Отмена</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
