@@ -18,7 +18,7 @@ namespace Clinic.Controllers
 
         // GET: Doctors
         [HttpGet]
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, bool? filterFirstName, string selectedFirstName, bool? filterLastName, string selectedLastName, bool? filterMiddleName, string selectedMiddleName, bool? filterRegistry, int? selectedRegistry, bool? filterSpecialty, int? selectedSpecialty)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["IdSortParam"] = string.IsNullOrEmpty(sortOrder) || sortOrder == "id_asc" ? "id_desc" : "id_asc";
@@ -74,6 +74,45 @@ namespace Clinic.Controllers
                     doctors = doctors.OrderBy(d => d.Id);
                     break;
             }
+            
+            ViewBag.FirstNames = await _context.Doctors.Select(d => d.FirstName).Distinct().ToListAsync();
+            ViewBag.LastNames = await _context.Doctors.Select(d => d.LastName).Distinct().ToListAsync();
+            ViewBag.MiddleNames = await _context.Doctors.Select(d => d.MiddleName).Distinct().ToListAsync();
+            ViewBag.Registries = await _context.Registries.ToListAsync();
+            ViewBag.Specialties = await _context.DoctorSpecialties.ToListAsync();
+
+            // Фильтрация по имени
+            if (filterFirstName == true)
+            {
+                doctors = doctors.Where(d => d.FirstName == selectedFirstName);
+            }
+
+            // Фильтрация по фамилии
+            if (filterLastName == true)
+            {
+                doctors = doctors.Where(d => d.LastName == selectedLastName);
+            }
+
+            // Фильтрация по отчеству
+            if (filterMiddleName == true)
+            {
+                doctors = doctors.Where(d => d.MiddleName == selectedMiddleName);
+            }
+
+            // Фильтрация по отделению
+            if (filterRegistry == true)
+            {
+                doctors = doctors.Where(d => d.RegistryId == selectedRegistry);
+            }
+
+            // Фильтрация по специальности
+            if (filterSpecialty == true)
+            {
+                doctors = doctors.Where(d => d.SpecialtyId == selectedSpecialty);
+            }
+
+            int doctorsCount = await doctors.CountAsync();
+            ViewBag.DoctorsCount = doctorsCount;
 
             List<Doctor> doctorList = await doctors.ToListAsync();
             return View(doctorList);

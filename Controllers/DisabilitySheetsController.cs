@@ -15,17 +15,33 @@ namespace Clinic.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, int? selectedDoctor, DateOnly? selectedDateFrom, DateOnly? selectedDateTo, bool? filterDateFrom, bool? filterDateTo, bool? filterDoctor)
         {
             IQueryable<DisabilitySheet> disabilitySheets  = _context.DisabilitySheets.Include(ds => ds.Doctor);
+
             if (!string.IsNullOrEmpty(searchString))
             {
+                var searchStringLower = searchString.ToLower();
                 disabilitySheets = disabilitySheets.Where(a =>
-                a.Id.ToString().Contains(searchString) ||
-                a.SheetNumber.Contains(searchString) || 
-                (a.Doctor.LastName + " " + a.Doctor.FirstName + " " + a.Doctor.MiddleName).Contains(searchString) || 
-                a.IssueDate.HasValue && a.IssueDate.Value.ToString("dd.MM.yyyy").Contains(searchString)
+                    a.SheetNumber.Contains(searchString) ||
+                    (a.Doctor.LastName + " " + a.Doctor.FirstName + " " + a.Doctor.MiddleName).ToLower().Contains(searchStringLower) ||
+                    a.IssueDate.HasValue && a.IssueDate.Value.ToString().Contains(searchString)
                 );
+            }
+
+            if (filterDoctor == true && selectedDoctor.HasValue)
+            {
+                disabilitySheets = disabilitySheets.Where(ds => ds.DoctorId == selectedDoctor);
+            }
+
+            if (filterDateFrom == true && selectedDateFrom.HasValue)
+            {
+                disabilitySheets = disabilitySheets.Where(ds => ds.IssueDate >= selectedDateFrom);
+            }
+
+            if (filterDateTo == true && selectedDateTo.HasValue)
+            {
+                disabilitySheets = disabilitySheets.Where(ds => ds.IssueDate <= selectedDateTo);
             }
             ViewData["CurrentSort"] = sortOrder;
             ViewData["IdSortParam"] = string.IsNullOrEmpty(sortOrder) || sortOrder == "id_asc" ? "id_desc" : "id_asc";
@@ -60,8 +76,11 @@ namespace Clinic.Controllers
                     disabilitySheets = disabilitySheets.OrderBy(ds => ds.Id);
                     break;
             }
-
-            return View(disabilitySheets);
+            int disabilitySheetsCount = await disabilitySheets.CountAsync();
+            ViewBag.DisabilitySheetsCount = disabilitySheetsCount;
+            ViewBag.Doctors = await _context.Doctors.Select(d => new { Id = d.Id, FullName = $"{d.LastName} {d.FirstName} {d.MiddleName}" }).ToListAsync();
+            List<DisabilitySheet> disabilitySheetsList = await disabilitySheets.ToListAsync();
+            return View(disabilitySheetsList);
         }
 
         public IActionResult Create()
