@@ -18,11 +18,14 @@ namespace Clinic.Controllers
         }
 
         // GET: ReasonsForVisit
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, bool filterPatient, bool filterDescription, int? selectedPatient, string selectedDescription)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["PatientSortParam"] = sortOrder == "patient_asc" ? "patient_desc" : "patient_asc";
             ViewData["DescriptionSortParam"] = sortOrder == "description_asc" ? "description_desc" : "description_asc";
+
+            ViewBag.Patients = _context.Patients.Select(p => new { Id = p.Id, FullName = $"{p.LastName} {p.FirstName} {p.MiddleName}" }).ToList();
+            ViewBag.Descriptions = _context.ReasonsForVisits.Select(a => a.Description).Distinct().ToList();
 
             var reasonsForVisit = _context.ReasonsForVisits
                 .Include(r => r.Patient)
@@ -35,6 +38,16 @@ namespace Clinic.Controllers
                     r.Patient.LastName.Contains(searchString) ||
                     r.Patient.MiddleName.Contains(searchString) ||
                     r.Description.Contains(searchString));
+            }
+
+            if (filterPatient)
+            {
+                reasonsForVisit = reasonsForVisit.Where(p => p.PatientId == selectedPatient.Value);
+            }
+
+            if (filterDescription)
+            {
+                reasonsForVisit = reasonsForVisit.Where(p => p.Description == selectedDescription);
             }
 
             switch (sortOrder)
@@ -55,6 +68,9 @@ namespace Clinic.Controllers
                     reasonsForVisit = reasonsForVisit.OrderBy(r => r.Patient.LastName);
                     break;
             }
+
+            int reasonsForVisitCount = await reasonsForVisit.CountAsync();
+            ViewBag.ReasonsForVisitCount = reasonsForVisitCount;
 
             return View(await reasonsForVisit.ToListAsync());
         }
