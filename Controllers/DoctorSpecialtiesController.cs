@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Clinic.Models;
+using System.Security.Cryptography;
 
 namespace Clinic.Controllers
 {
@@ -16,7 +17,7 @@ namespace Clinic.Controllers
         }
 
         // GET: DoctorSpecialties
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string selectedName, string selectedDescription, bool? filterName, bool? filterDescription)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParam"] = string.IsNullOrEmpty(sortOrder) || sortOrder == "name_asc" ? "name_desc" : "name_asc";
@@ -29,6 +30,16 @@ namespace Clinic.Controllers
             {
                 specialties = specialties.Where(s => s.Name.Contains(searchString) || s.Description.Contains(searchString));
                 // Add more search criteria if needed
+            }
+
+            if (filterName == true)
+            {
+                specialties = specialties.Where(ds => ds.Name == selectedName);
+            }
+
+            if (filterDescription == true)
+            {
+                specialties = specialties.Where(ds => ds.Description == selectedDescription);
             }
 
             switch (sortOrder)
@@ -51,6 +62,10 @@ namespace Clinic.Controllers
                     break;
             }
 
+            int specialtiesCount = specialties.Count();
+            ViewBag.specialtiesCount = specialtiesCount;
+            ViewBag.Name = _context.DoctorSpecialties.Select(d => d.Name).Distinct().ToList();
+            ViewBag.Description = _context.DoctorSpecialties.Select(d => d.Description).Distinct().ToList();
             return View(await specialties.ToListAsync());
         }
 
