@@ -18,13 +18,18 @@ namespace Clinic.Controllers
         }
 
         // GET: Registrars
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, bool filterLastName, bool filterFirstName, bool filterMiddleName, bool filterSubdivisionName, string selectedLastName, string selectedFirstName, string selectedMiddleName, int? selectedSubdivisionName)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["LastNameSortParam"] = sortOrder == "lastname_asc" ? "lastname_desc" : "lastname_asc";
             ViewData["FirstNameSortParam"] = sortOrder == "firstname_asc" ? "firstname_desc" : "firstname_asc";
             ViewData["MiddleNameSortParam"] = sortOrder == "middlename_asc" ? "middlename_desc" : "middlename_asc";
             ViewData["SubdivisionSortParam"] = sortOrder == "subdivision_asc" ? "subdivision_desc" : "subdivision_asc";
+
+            ViewBag.LastNames = _context.Registrars.Select(p => p.LastName).Distinct().ToList();
+            ViewBag.MiddleNames = _context.Registrars.Select(p => p.MiddleName).Distinct().ToList();
+            ViewBag.FirstNames = _context.Registrars.Select(p => p.FirstName).Distinct().ToList();
+            ViewBag.SubdivisionNames = _context.Registries.Select(p => new { Id = p.Id, Name = $"{p.SubdivisionName}"}).ToList();
 
             var registrars = _context.Registrars
                 .Include(r => r.Registry)
@@ -37,6 +42,27 @@ namespace Clinic.Controllers
                     r.FirstName.Contains(searchString) ||
                     r.MiddleName.Contains(searchString) ||
                     r.Registry.SubdivisionName.Contains(searchString));
+            }
+
+            
+            if (filterLastName)
+            {
+                registrars = registrars.Where(p => p.LastName == selectedLastName);
+            }
+
+            if (filterFirstName)
+            {
+                registrars = registrars.Where(p => p.FirstName == selectedFirstName);
+            }
+
+            if (filterMiddleName)
+            {
+                registrars = registrars.Where(p => p.MiddleName == selectedMiddleName);
+            }
+
+            if (filterSubdivisionName)
+            {
+                registrars = registrars.Where(p => p.RegistryId == selectedSubdivisionName.Value);
             }
 
             switch (sortOrder)
@@ -69,6 +95,9 @@ namespace Clinic.Controllers
                     registrars = registrars.OrderBy(r => r.LastName);
                     break;
             }
+
+            int registrarsCount = await registrars.CountAsync();
+            ViewBag.registrarsCount = registrarsCount;
 
             return View(await registrars.ToListAsync());
         }

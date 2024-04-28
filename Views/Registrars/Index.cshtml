@@ -26,13 +26,61 @@
 <h2>Регистраторы</h2>
 
 <p>
-    <a asp-action="Create">Добавить регистратора</a>
+    <form id="searchForm" asp-controller="Registrars" asp-action="Index" method="get">
+        <div class="form-group" style="margin-bottom: 10px;">
+            <label for="searchInput" class="mr-2">Поиск</label>
+            <input id="searchInput" type="text" name="searchString" placeholder="Введите текст для поиска" class="form-control mr-2">
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterLastName" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Фамилия</label>
+            <select name="selectedLastName" class="form-control mr-2">
+                @foreach (var lastName in ViewBag.LastNames)
+                {
+                    <option value="@lastName">@lastName</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterFirstName" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Имя</label>
+            <select name="selectedFirstName" class="form-control mr-2">
+                @foreach (var firstName in ViewBag.FirstNames)
+                {
+                    <option value="@firstName">@firstName</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterMiddleName" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Отчество</label>
+            <select name="selectedMiddleName" class="form-control mr-2">
+                @foreach (var middleName in ViewBag.MiddleNames)
+                {
+                    <option value="@middleName">@middleName</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterSubdivisionName" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Подразделение</label>
+            <select name="selectedSubdivisionName" class="form-control mr-2">
+                @foreach (var subdivisionName in ViewBag.SubdivisionNames)
+                {
+                    <option value="@subdivisionName.Id">@subdivisionName.Name</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Применить фильтры</button>
+        <p>Найдено записей: @ViewBag.registrarsCount</p>
+    </form>
+    <div class="col-md-9" style="margin-top: 10px; margin-bottom: 10px;">
+        @if (User.IsInRole("admin"))
+        {
+            <a asp-action="Create" class="btn btn-primary">Создать новую запись</a>
+        }
+    </div>
 </p>
-<form id="searchForm" asp-controller="Registrars" asp-action="Index" method="get">
-    <p>
-        <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
-    </p>
-</form>
 <table class="table">
     <thead>
         <tr>
