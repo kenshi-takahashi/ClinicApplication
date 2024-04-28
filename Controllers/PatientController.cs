@@ -18,7 +18,7 @@ namespace Clinic.Controllers
         }
 
         // GET: Patients
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, bool filterLastName, bool filterFirstName, bool filterMiddleName, bool filterBirthDateFrom, bool filterBirthDateTo, bool filterAddress, bool filterPhone, bool filterDistrict, string selectedLastName, string selectedFirstName, string selectedMiddleName, string selectedAddress, string selectedPhone, string selectedDistrict, DateOnly? birthDateFrom, DateOnly? birthDateTo)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["LastNameSortParam"] = sortOrder == "last_name_asc" ? "last_name_desc" : "last_name_asc";
@@ -43,6 +43,46 @@ namespace Clinic.Controllers
                     p.Phone.Contains(searchString) ||
                     p.District.DistrictNumber.ToString().Contains(searchString) ||
                     p.BirthDate.HasValue && p.BirthDate.Value.ToString().Contains(searchString));
+            }
+
+            if (filterLastName)
+            {
+                patients = patients.Where(p => p.LastName == selectedLastName);
+            }
+
+            if (filterFirstName)
+            {
+                patients = patients.Where(p => p.FirstName == selectedFirstName);
+            }
+
+            if (filterMiddleName)
+            {
+                patients = patients.Where(p => p.MiddleName == selectedMiddleName);
+            }
+
+            if (filterBirthDateFrom)
+            {
+                patients = patients.Where(p => p.BirthDate >= birthDateFrom);
+            }
+
+            if (filterBirthDateTo)
+            {
+                patients = patients.Where(p => p.BirthDate <= birthDateTo);
+            }
+
+            if (filterAddress)
+            {
+                patients = patients.Where(p => p.Address == selectedAddress);
+            }
+
+            if (filterPhone)
+            {
+                patients = patients.Where(p => p.Phone == selectedPhone);
+            }
+
+            if (filterDistrict)
+            {
+                patients = patients.Where(p => p.District.DistrictNumber.ToString() == selectedDistrict);
             }
 
             switch (sortOrder)
@@ -93,6 +133,8 @@ namespace Clinic.Controllers
                     patients = patients.OrderBy(p => p.LastName);
                     break;
             }
+
+            ViewData["PatientsCount"] = patients.Count();
 
             return View(await patients.ToListAsync());
         }

@@ -21,18 +21,102 @@
         }
         return "";
     }
+    var lastNames = Model.Select(p => p.LastName).Distinct().ToList();
+    var firstNames = Model.Select(p => p.FirstName).Distinct().ToList();
+    var middleNames = Model.Select(p => p.MiddleName).Distinct().ToList();
+    var addresses = Model.Select(p => p.Address).Distinct().ToList();
+    var phones = Model.Select(p => p.Phone).Distinct().ToList();
+    var districts = Model.Select(p => p.District.DistrictNumber).Distinct().ToList();
 }
 
 <h2>Пациенты</h2>
 
 <p>
-    <a asp-action="Create">Добавить пациента</a>
+    <form id="searchForm" asp-controller="Patients" asp-action="Index" method="get">
+        <div class="form-group" style="margin-bottom: 10px;">
+            <label for="searchInput" class="mr-2">Поиск</label>
+            <input id="searchInput" type="text" name="searchString" placeholder="Введите текст для поиска" class="form-control mr-2">
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterLastName" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Фамилия</label>
+            <select name="selectedLastName" class="form-control mr-2">
+                @foreach (var lastName in lastNames)
+                {
+                    <option value="@lastName">@lastName</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterFirstName" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Имя</label>
+            <select name="selectedFirstName" class="form-control mr-2">
+                @foreach (var firstName in firstNames)
+                {
+                    <option value="@firstName">@firstName</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterMiddleName" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Отчество</label>
+            <select name="selectedMiddleName" class="form-control mr-2">
+                @foreach (var middleName in middleNames)
+                {
+                    <option value="@middleName">@middleName</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterBirthDateFrom" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Дата рождения от</label>
+            <input type="date" name="birthDateFrom" class="form-control mr-2">
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterBirthDateTo" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Дата рождения до</label>
+            <input type="date" name="birthDateTo" class="form-control mr-2">
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterAddress" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Адрес</label>
+            <select name="selectedAddress" class="form-control mr-2">
+                @foreach (var address in addresses)
+                {
+                    <option value="@address">@address</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterPhone" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Телефон</label>
+            <select name="selectedPhone" class="form-control mr-2">
+                @foreach (var phone in phones)
+                {
+                    <option value="@phone">@phone</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterDistrict" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Район</label>
+            <select name="selectedDistrict" class="form-control mr-2">
+                @foreach (var district in districts)
+                {
+                    <option value="@district">@district</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Применить фильтры</button>
+        <p>Найдено записей: @ViewBag.PatientsCount</p>
+    </form>
+    <div class="col-md-9" style="margin-top: 10px; margin-bottom: 10px;">
+        @if (User.IsInRole("admin"))
+        {
+            <a asp-action="Create" class="btn btn-primary">Создать новую запись</a>
+        }
+    </div>
 </p>
-<form id="searchForm" asp-controller="Patients" asp-action="Index" method="get">
-    <p>
-        <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
-    </p>
-</form>
 <table class="table">
     <thead>
         <tr>
