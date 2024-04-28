@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -36,5 +37,16 @@ namespace Clinic.Controllers
             context.Result = new ViewResult { ViewName = "InsufficientPermissions" };
         }
     }
-
+    public class AnonymousOnlyAttribute : Attribute, IAuthorizationFilter
+    {
+        public void OnAuthorization(AuthorizationFilterContext context)
+        {
+            if (context.HttpContext.User.Identity.IsAuthenticated)
+            {
+                // Если пользователь авторизован, перенаправить его на главную страницу или другую страницу по умолчанию
+                context.Result = new RedirectToRouteResult(
+                    new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+            }
+        }
+    }
 }

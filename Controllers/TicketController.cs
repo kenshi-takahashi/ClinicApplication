@@ -40,7 +40,7 @@ namespace Clinic.Controllers
                     t.Doctor.FirstName.Contains(searchString) ||
                     t.Doctor.MiddleName.Contains(searchString) ||
                     t.Doctor.Specialty.Name.Contains(searchString) ||
-                    t.AppointmentTime.HasValue && t.AppointmentTime.Value.ToString().Contains(searchString) ||
+                    t.AppointmentDate.HasValue && t.AppointmentDate.Value.ToString().Contains(searchString) ||
                     t.AppointmentTime.HasValue && t.AppointmentTime.Value.ToString().Contains(searchString));
             }
 

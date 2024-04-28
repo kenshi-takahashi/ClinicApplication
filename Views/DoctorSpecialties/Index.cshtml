@@ -68,7 +68,10 @@
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DescriptionSortParam"]">Описание специальзации @Html.Raw(GetSortArrow("description_asc"))</a>
             </th>
-            <th></th>
+            @if (User.IsInRole("admin"))
+            {
+                <th>Действия</th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -81,11 +84,13 @@
                     <td>
                     @Html.DisplayFor(modelItem => item.Description)
                     </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Детали</a>
-                    </td>
+                    @if (User.IsInRole("admin"))
+                    {
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                        </td>
+                    }
                 </tr>
         }
     </tbody>

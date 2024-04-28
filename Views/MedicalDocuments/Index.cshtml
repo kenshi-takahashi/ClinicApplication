@@ -82,7 +82,10 @@
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["PatientSortParam"]">Пациент @Html.Raw(GetSortArrow("patient_asc"))</a>
             </th>
-            <th>Действия</th>
+            @if (User.IsInRole("admin"))
+            {
+                <th>Действия</th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -98,11 +101,13 @@
                 <td>
                     @item.Patient.FullName
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Детали</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
-                </td>
+                @if (User.IsInRole("admin"))
+                    {
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                        </td>
+                    }
             </tr>
         }
     </tbody>

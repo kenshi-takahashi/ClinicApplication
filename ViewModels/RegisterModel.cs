@@ -4,7 +4,7 @@ namespace Clinic.ViewModels
 {
     public class RegisterModel
     {
-        [Required(ErrorMessage ="Не указан Email")]
+        [Required(ErrorMessage ="Не указан телефон")]
         public string Email { get; set; }
          
         [Required(ErrorMessage = "Не указан пароль")]

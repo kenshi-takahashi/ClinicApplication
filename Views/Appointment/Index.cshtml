@@ -78,7 +78,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParam"]">Id @Html.Raw(GetSortArrow("id_asc"))</a></th>
             <th><a asp-action="Index" asp-route-sortOrder="@ViewData["DescSortParam"]">Описание @Html.Raw(GetSortArrow("description_asc"))</a></th>
             <th><a asp-action="Index" asp-route-sortOrder="@ViewData["DoctorSortParam"]">ФИО врача @Html.Raw(GetSortArrow("doctor_asc"))</a></th>
             <th><a asp-action="Index" asp-route-sortOrder="@ViewData["PatientSortParam"]">ФИО пациента @Html.Raw(GetSortArrow("patient_asc"))</a></th>
@@ -92,7 +91,6 @@
         @foreach (var appointment in Model)
         {
             <tr>
-                <td>@appointment.Id</td>
                 <td>@appointment.Description</td>
                 <td>@($"{appointment.Doctor.LastName} {appointment.Doctor.FirstName} {appointment.Doctor.MiddleName}")</td>
                 <td>@($"{appointment.Patient.LastName} {appointment.Patient.FirstName} {appointment.Patient.MiddleName}")</td>

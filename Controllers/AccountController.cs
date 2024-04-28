@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Clinic.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Clinic.Controllers
 {
@@ -18,6 +19,8 @@ namespace Clinic.Controllers
             _context = context;
         }
         [HttpGet]
+    [AnonymousOnly]
+
         public IActionResult Register()
         {
             return View();
@@ -25,6 +28,8 @@ namespace Clinic.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+    [AnonymousOnly]
+
         public async Task<IActionResult> Register(RegisterModel model)
         {
             if (ModelState.IsValid)
@@ -34,7 +39,7 @@ namespace Clinic.Controllers
                 if (existingUser != null)
                 {
                     // Если пользователь существует, добавляем ошибку в ModelState и возвращаем представление снова
-                    ModelState.AddModelError("", "Пользователь с такой почтой уже существует");
+                    ModelState.AddModelError("", "Пользователь с таким номером телефона уже существует");
                     return View(model);
                 }
 
@@ -63,12 +68,16 @@ namespace Clinic.Controllers
 
 
         [HttpGet]
+    [AnonymousOnly]
+
         public IActionResult Login()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+    [AnonymousOnly]
+
         public async Task<IActionResult> Login(LoginModel model)
         {
             if (ModelState.IsValid)
@@ -82,7 +91,7 @@ namespace Clinic.Controllers
  
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                ModelState.AddModelError("", "Некорректные телефон и(или) пароль");
             }
             return View(model);
         }
@@ -103,6 +112,7 @@ namespace Clinic.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             // Вызываем метод SignOutAsync для удаления аутентификационных куки пользователя

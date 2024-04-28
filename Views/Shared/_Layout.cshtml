@@ -46,14 +46,6 @@
                             <a class="dropdown-item" asp-area="" asp-controller="Tickets" asp-action="Index">Талоны</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Запросы
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-animated" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" asp-area="" asp-controller="Appointment" asp-action="Index">Appointments</a>
-                        </div>
-                    </li>
                 </ul>
                 <div style="margin-left: auto;">
                     @if (User.Identity.IsAuthenticated)

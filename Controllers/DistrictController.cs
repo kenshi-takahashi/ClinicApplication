@@ -23,7 +23,6 @@ namespace Clinic.Controllers
             {
                 searchString = searchString.ToLower();
                 districts = districts.Where(d =>
-                    d.Id.ToString().Contains(searchString) ||
                     d.DistrictNumber.ToString().Contains(searchString) ||
                     (d.Doctor.LastName.ToLower() + " " + d.Doctor.FirstName.ToLower() + " " + d.Doctor.MiddleName.ToLower()).Contains(searchString)
                 );

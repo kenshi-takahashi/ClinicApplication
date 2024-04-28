@@ -63,26 +63,29 @@
 <table class="table">
     <thead>
         <tr>
-            <th><a asp-action="Index" asp-route-sortOrder="@ViewData["IdSortParam"]">Id @Html.Raw(GetSortArrow("id_asc"))</a></th>
             <th><a asp-action="Index" asp-route-sortOrder="@ViewData["SheetNumberSortParam"]">Номер лсита @Html.Raw(GetSortArrow("sheetnumber_asc"))</a></th>
             <th><a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]">Дата выдачи @Html.Raw(GetSortArrow("date_asc"))</a></th>
             <th><a asp-action="Index" asp-route-sortOrder="@ViewData["DoctorSortParam"]">ФИО Доктора @Html.Raw(GetSortArrow("doctor_asc"))</a></th>
-            <th>Действия</th>
+            @if (User.IsInRole("admin"))
+            {
+                <th>Действия</th>
+            }
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Id</td>
                 <td>@item.SheetNumber</td>
                 <td>@item.IssueDate</td>
                 <td>@item.Doctor.MiddleName @item.Doctor.FirstName @item.Doctor.LastName</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Подробно</a>
-                </td>
+                @if (User.IsInRole("admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                    </td>
+                }
             </tr>
         }
     </tbody>

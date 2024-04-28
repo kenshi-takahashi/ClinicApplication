@@ -37,7 +37,7 @@ namespace Clinic.Controllers
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                appointments = appointments.Where(a => a.Id.ToString().Contains(searchString) || a.Description.Contains(searchString) || (a.Doctor.LastName + " " + a.Doctor.FirstName + " " + a.Doctor.MiddleName).Contains(searchString) ||(a.Patient.LastName + " " + a.Patient.FirstName + " " + a.Patient.MiddleName).Contains(searchString));
+                appointments = appointments.Where(a => a.Description.Contains(searchString) || (a.Doctor.LastName + " " + a.Doctor.FirstName + " " + a.Doctor.MiddleName).Contains(searchString) || (a.Patient.LastName + " " + a.Patient.FirstName + " " + a.Patient.MiddleName).Contains(searchString));
             }
 
             if (filterDescription == true && !string.IsNullOrEmpty(selectedDescription))
@@ -84,7 +84,7 @@ namespace Clinic.Controllers
             }
             int appointmentsCount = await appointments.CountAsync();
             ViewBag.AppointmentsCount = appointmentsCount;
-            
+
             List<Appointment> appointmentList = await appointments.ToListAsync();
             return View(appointmentList);
         }
