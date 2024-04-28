@@ -79,8 +79,7 @@ namespace Clinic.Controllers
             int disabilitySheetsCount = await disabilitySheets.CountAsync();
             ViewBag.DisabilitySheetsCount = disabilitySheetsCount;
             ViewBag.Doctors = await _context.Doctors.Select(d => new { Id = d.Id, FullName = $"{d.LastName} {d.FirstName} {d.MiddleName}" }).ToListAsync();
-            List<DisabilitySheet> disabilitySheetsList = await disabilitySheets.ToListAsync();
-            return View(disabilitySheetsList);
+            return View(disabilitySheets.ToList());
         }
 
         public IActionResult Create()

@@ -64,16 +64,16 @@ namespace Clinic.Controllers
                     appointments = appointments.OrderByDescending(a => a.Description);
                     break;
                 case "doctor_asc":
-                    appointments = appointments.OrderBy(a => a.Doctor.MiddleName).ThenBy(a => a.Doctor.FirstName).ThenBy(a => a.Doctor.LastName);
+                    appointments = appointments.OrderBy(a => a.Doctor.LastName).ThenBy(a => a.Doctor.FirstName).ThenBy(a => a.Doctor.MiddleName);
                     break;
                 case "doctor_desc":
-                    appointments = appointments.OrderByDescending(a => a.Doctor.MiddleName).ThenByDescending(a => a.Doctor.FirstName).ThenByDescending(a => a.Doctor.LastName);
+                    appointments = appointments.OrderByDescending(a => a.Doctor.LastName).ThenByDescending(a => a.Doctor.FirstName).ThenByDescending(a => a.Doctor.MiddleName);
                     break;
                 case "patient_asc":
-                    appointments = appointments.OrderBy(a => a.Patient.MiddleName).ThenBy(a => a.Patient.FirstName).ThenBy(a => a.Patient.LastName);
+                    appointments = appointments.OrderBy(a => a.Patient.LastName).ThenBy(a => a.Patient.FirstName).ThenBy(a => a.Patient.MiddleName);
                     break;
                 case "patient_desc":
-                    appointments = appointments.OrderByDescending(a => a.Patient.MiddleName).ThenByDescending(a => a.Patient.FirstName).ThenByDescending(a => a.Patient.LastName);
+                    appointments = appointments.OrderByDescending(a => a.Patient.LastName).ThenByDescending(a => a.Patient.FirstName).ThenByDescending(a => a.Patient.MiddleName);
                     break;
                 case "id_desc":
                     appointments = appointments.OrderByDescending(a => a.Id);

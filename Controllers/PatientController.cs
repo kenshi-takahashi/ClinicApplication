@@ -41,7 +41,8 @@ namespace Clinic.Controllers
                     p.MiddleName.Contains(searchString) ||
                     p.Address.Contains(searchString) ||
                     p.Phone.Contains(searchString) ||
-                    p.District.DistrictNumber.ToString().Contains(searchString));
+                    p.District.DistrictNumber.ToString().Contains(searchString) ||
+                    p.BirthDate.HasValue && p.BirthDate.Value.ToString().Contains(searchString));
             }
 
             switch (sortOrder)
