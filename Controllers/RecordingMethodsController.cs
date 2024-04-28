@@ -17,11 +17,14 @@ namespace Clinic.Controllers
         }
 
         // GET: RecordingMethods
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, bool filterName, bool filterDescription, string selectedName, string selectedDescription)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParam"] = sortOrder == "name_asc" ? "name_desc" : "name_asc";
             ViewData["DescriptionSortParam"] = sortOrder == "description_asc" ? "description_desc" : "description_asc";
+
+            ViewBag.Descriptions = _context.RecordingMethods.Select(a => a.Description).Distinct().ToList();
+            ViewBag.Name = _context.RecordingMethods.Select(a => a.Name).Distinct().ToList();
 
             var recordingMethods = _context.RecordingMethods
                 .AsNoTracking();
@@ -31,6 +34,16 @@ namespace Clinic.Controllers
                 recordingMethods = recordingMethods.Where(rm =>
                     rm.Name.Contains(searchString) ||
                     rm.Description.Contains(searchString));
+            }
+
+            if (filterName)
+            {
+                recordingMethods = recordingMethods.Where(p => p.Name == selectedName);
+            }
+
+            if (filterDescription)
+            {
+                recordingMethods = recordingMethods.Where(p => p.Description == selectedDescription);
             }
 
             switch (sortOrder)
@@ -51,6 +64,9 @@ namespace Clinic.Controllers
                     recordingMethods = recordingMethods.OrderBy(rm => rm.Name);
                     break;
             }
+
+            int recordingMethodsCount = await recordingMethods.CountAsync();
+            ViewBag.recordingMethodsCount = recordingMethodsCount;
 
             return View(await recordingMethods.ToListAsync());
         }
