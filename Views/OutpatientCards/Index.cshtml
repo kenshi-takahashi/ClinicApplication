@@ -26,13 +26,40 @@
 <h1>Амбулаторные карты</h1>
 
 <p>
-    <a asp-action="Create">Добавить амбулаторную карту</a>
+    <form id="searchForm" asp-controller="OutpatientCards" asp-action="Index" method="get">
+        <div  class="form-group" style="margin-bottom: 10px;">
+            <label for="searchInput" class="mr-2">Поиск</label>
+            <input id="searchInput" type="text" name="searchString" placeholder="Введите текст для поиска" class="form-control mr-2">
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterCardNumber" value="true" class="form-check-input"><label class="form-check-label mr-2">Номер карты</label>
+            <select name="selectedCardNumber" class="form-control mr-2">
+                @foreach (var cardNumber in ViewBag.CardNumbers)
+                {
+                    <option value="@cardNumber">@cardNumber</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterPatient" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Пациент</label>
+            <select name="selectedPatient" class="form-control mr-2">
+                @foreach (var patient in ViewBag.Patients)
+                {
+                    <option value="@patient.Value">@patient.Text</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Применить фильтры</button>
+        <p>Найдено записей: @ViewBag.OutpatientCardsCount</p>
+    </form>
+    <div class="col-md-9" style="margin-top: 10px; margin-bottom: 10px;">
+        @if (User.IsInRole("admin"))
+        {
+            <a asp-action="Create" class="btn btn-primary">Создать новую запись</a>
+        }
+    </div>
 </p>
-<form id="searchForm" asp-controller="OutpatientCards" asp-action="Index" method="get">
-    <p>
-        <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
-    </p>
-</form>
 <table class="table">
     <thead>
         <tr>
@@ -50,10 +77,10 @@
         {
             <tr>
                 <td>
-                    @item.CardNumber
+                @item.CardNumber
                 </td>
                 <td>
-                    @item.Patient.MiddleName @item.Patient.FirstName @item.Patient.LastName
+                @item.Patient.MiddleName @item.Patient.FirstName @item.Patient.LastName
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |

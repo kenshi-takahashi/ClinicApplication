@@ -18,11 +18,11 @@ namespace Clinic.Controllers
         }
 
         // GET: OutpatientCards
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string selectedCardNumber, string selectedPatient, bool? filterCardNumber, bool? filterPatient)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["CardNumberSortParam"] = sortOrder == "card_number_desc" ? "card_number_asc" : "card_number_desc";
-            ViewData["PatientSortParam"] = sortOrder == "patient_desc" ? "patient_asc" : "patient_desc";
+            ViewData["PatientSortParam"] = sortOrder == "patient_desc" ? "patient_asc" : "patient_asc";
 
             var outpatientCards = _context.OutpatientCards
                 .Include(o => o.Patient)
@@ -33,6 +33,17 @@ namespace Clinic.Controllers
                 outpatientCards = outpatientCards.Where(o =>
                     o.CardNumber.Contains(searchString) ||
                     (o.Patient.MiddleName + " " + o.Patient.FirstName + " " + o.Patient.LastName).Contains(searchString));
+            }
+
+            if (filterCardNumber == true)
+            {
+                outpatientCards = outpatientCards.Where(o => o.CardNumber == selectedCardNumber);
+            }
+
+            if (filterPatient == true)
+            {
+                int selectedPatientId = int.Parse(selectedPatient);
+                outpatientCards = outpatientCards.Where(o => o.PatientId == selectedPatientId);
             }
 
             switch (sortOrder)
@@ -58,8 +69,19 @@ namespace Clinic.Controllers
                     break;
             }
 
+            ViewBag.CardNumbers = _context.OutpatientCards.Select(o => o.CardNumber).Distinct().ToList();
+            ViewBag.Patients = _context.Patients.Select(p => new SelectListItem
+            {
+                Value = p.Id.ToString(),
+                Text = p.MiddleName + " " + p.FirstName + " " + p.LastName
+            }).ToList();
+
+            int outpatientCardsCount = outpatientCards.Count();
+            ViewBag.OutpatientCardsCount = outpatientCardsCount;
+
             return View(await outpatientCards.ToListAsync());
         }
+
 
         // GET: OutpatientCards/Details/5
         public async Task<IActionResult> Details(int? id)
