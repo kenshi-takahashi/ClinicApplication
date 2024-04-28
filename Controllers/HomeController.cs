@@ -1,34 +1,47 @@
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using Clinic.Models;
-using Microsoft.AspNetCore.Authorization;
-using Clinic.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
-namespace Clinic.Controllers;
-
-
-public class HomeController : Controller
+namespace Clinic.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-    
-    public HomeController(ILogger<HomeController> logger)
+    public class HomeController : Controller
     {
-        _logger = logger;
-    }
+        private readonly ClinicDbContext _context;
 
-    public IActionResult Index()
-    {
-        return View();
-    }
+        public HomeController(ClinicDbContext context)
+        {
+            _context = context;
+        }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
+        public IActionResult Privacy()
+        {
+            return View();
+        }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
+        public IActionResult Index()
+        {
+            var userEmail = User.Identity.Name; // Получить email текущего пользователя
+            var patient = _context.Patients.FirstOrDefault(p => p.Phone == userEmail); // Найти пациента по номеру телефона
+
+            if (patient != null)
+            {
+                var appointments = _context.Appointments
+                    .Where(a => a.PatientId == patient.Id)
+                    .Include(a => a.Doctor)
+                    .ToList();
+
+                var appointmentIds = appointments.Select(a => a.Id).ToList();
+                var tickets = _context.Tickets.Where(t => appointmentIds.Contains(t.Id)).ToList();
+
+                return View(Tuple.Create(appointments, tickets)); // Передать записи в представление
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Упс... Пациента с таким номером телефона не существует";
+                return View(Tuple.Create(new List<Appointment>(), new List<Ticket>()));
+            }
+        }
     }
 }
