@@ -18,12 +18,15 @@ namespace Clinic.Controllers
         }
 
         // GET: Tickets
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, bool? filterDoctor, int? selectedDoctor, bool? filterSpecialty, int? selectedSpecialty, DateOnly? selectedDateFrom, DateOnly? selectedDateTo, bool? filterDateFrom, bool? filterDateTo)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["DoctorSortParam"] = sortOrder == "doctor_asc" ? "doctor_desc" : "doctor_asc";
             ViewData["AppointmentDateSortParam"] = sortOrder == "appointment_date_asc" ? "appointment_date_desc" : "appointment_date_asc";
             ViewData["AppointmentTimeSortParam"] = sortOrder == "appointment_time_asc" ? "appointment_time_desc" : "appointment_time_asc";
+
+            ViewBag.Doctors = _context.Doctors.Select(d => new { Id = d.Id, FullName = $"{d.LastName} {d.FirstName} {d.MiddleName}" }).ToList();
+            ViewBag.Specialties = await _context.DoctorSpecialties.ToListAsync();
 
             var tickets = _context.Tickets
                 .Include(t => t.Doctor)
@@ -37,7 +40,28 @@ namespace Clinic.Controllers
                     t.Doctor.FirstName.Contains(searchString) ||
                     t.Doctor.MiddleName.Contains(searchString) ||
                     t.Doctor.Specialty.Name.Contains(searchString) ||
-                    t.AppointmentDate.HasValue && t.AppointmentDate.Value.ToString().Contains(searchString));
+                    t.AppointmentTime.HasValue && t.AppointmentTime.Value.ToString().Contains(searchString) ||
+                    t.AppointmentTime.HasValue && t.AppointmentTime.Value.ToString().Contains(searchString));
+            }
+
+            if (filterDoctor == true && selectedDoctor.HasValue)
+            {
+                tickets = tickets.Where(a => a.DoctorId == selectedDoctor.Value);
+            }
+
+            if (filterSpecialty == true)
+            {
+                tickets = tickets.Where(d => d.Doctor.SpecialtyId == selectedSpecialty.Value);
+            }
+
+            if (filterDateFrom == true && selectedDateFrom.HasValue)
+            {
+                tickets = tickets.Where(ds => ds.AppointmentDate >= selectedDateFrom);
+            }
+
+            if (filterDateTo == true && selectedDateTo.HasValue)
+            {
+                tickets = tickets.Where(ds => ds.AppointmentDate <= selectedDateTo);
             }
 
             switch (sortOrder)
@@ -65,6 +89,8 @@ namespace Clinic.Controllers
                     break;
             }
 
+            int ticketsCount = await tickets.CountAsync();
+            ViewBag.ticketsCount = ticketsCount;
             return View(await tickets.ToListAsync());
         }
 

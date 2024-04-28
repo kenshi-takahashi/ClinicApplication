@@ -25,14 +25,52 @@
 
 <h2>Талоны</h2>
 
-<p>
-    <a asp-action="Create">Добавить талон</a>
-</p>
-<form id="searchForm" asp-controller="Tickets" asp-action="Index" method="get">
-    <p>
-        <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
-    </p>
-</form>
+    <div>
+        <form id="searchForm" asp-controller="Tickets" asp-action="Index" method="get" class="form-inline">
+            <div class="form-group" style="margin-bottom: 10px;">
+                <label for="searchInput" class="mr-2">Поиск</label>
+                <input id="searchInput" type="text" name="searchString" placeholder="Введите текст для поиска" class="form-control mr-2">
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="filterDoctor" value="true" class="form-check-input">
+                <label class="form-check-label mr-2">ФИО врача</label>
+                <select name="selectedDoctor" class="form-control mr-2">
+                    @foreach (var doctor in ViewBag.Doctors)
+                    {
+                        <option value="@doctor.Id">@doctor.FullName</option>
+                    }
+                </select>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="filterSpecialty" value="true" class="form-check-input">
+                <label class="form-check-label mr-2">Специальность</label>
+                <select name="selectedSpecialty" class="form-control mr-2">
+                    @foreach (var specialty in ViewBag.Specialties)
+                    {
+                        <option value="@specialty.Id">@specialty.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="filterDateFrom" value="true" class="form-check-input">
+                <label class="form-check-label mr-2">Дата от</label>
+                <input type="date" name="selectedDateFrom" class="form-control mr-2">
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="filterDateTo" value="true" class="form-check-input">
+                <label class="form-check-label mr-2">Дата до</label>
+                <input type="date" name="selectedDateTo" class="form-control mr-2">
+            </div>
+            <button type="submit" class="btn btn-primary">Применить фильтры</button>
+        </form>
+        <p>Найдено записей: @ViewBag.ticketsCount</p>
+    </div>
+    <div class="col-md-9" style="margin-top: 10px; margin-bottom: 10px;">
+        @if (User.IsInRole("admin"))
+        {
+            <a asp-action="Create" class="btn btn-primary">Создать новую запись</a>
+        }
+    </div>
 <table class="table">
     <thead>
         <tr>
