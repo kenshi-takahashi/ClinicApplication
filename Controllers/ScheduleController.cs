@@ -18,13 +18,16 @@ namespace Clinic.Controllers
         }
 
         // GET: Schedule
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, bool filterDoctor, int? selectedDoctor, bool filterDay, string selectedDay)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["DoctorSortParam"] = sortOrder == "doctor_asc" ? "doctor_desc" : "doctor_asc";
             ViewData["DayOfWeekSortParam"] = sortOrder == "dayofweek_asc" ? "dayofweek_desc" : "dayofweek_asc";
             ViewData["StartTimeSortParam"] = sortOrder == "starttime_asc" ? "starttime_desc" : "starttime_asc";
             ViewData["EndTimeSortParam"] = sortOrder == "endtime_asc" ? "endtime_desc" : "endtime_asc";
+
+            ViewBag.Days = _context.Schedules.Select(p => p.DayOfWeek).Distinct().ToList();
+            ViewBag.Doctors = _context.Doctors.Select(p => new { Id = p.Id, Name = $"{p.FullName}" }).ToList();
 
             var schedules = _context.Schedules
                 .Include(s => s.Doctor)
@@ -40,6 +43,16 @@ namespace Clinic.Controllers
                     s.DayOfWeek.ToLower().Contains(searchString) ||
                     s.StartTime.ToString().ToLower().Contains(searchString) ||
                     s.EndTime.ToString().ToLower().Contains(searchString));
+            }
+
+            if (filterDay)
+            {
+                schedules = schedules.Where(p => p.DayOfWeek == selectedDay);
+            }
+
+            if (filterDoctor)
+            {
+                schedules = schedules.Where(p => p.DoctorId == selectedDoctor.Value);
             }
 
             switch (sortOrder)
@@ -72,6 +85,9 @@ namespace Clinic.Controllers
                     schedules = schedules.OrderBy(s => s.Doctor.LastName);
                     break;
             }
+
+            int schedulesCount = await schedules.CountAsync();
+            ViewBag.schedulesCount = schedulesCount;
 
             return View(await schedules.ToListAsync());
         }
