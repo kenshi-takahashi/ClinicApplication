@@ -26,13 +26,40 @@
 
 <p>
     <form id="searchForm" asp-controller="District" asp-action="Index" method="get">
-        <p>
-            <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
-        </p>
+        <div  class="form-group" style="margin-bottom: 10px;">
+            <label for="searchInput" class="mr-2">Поиск</label>
+            <input id="searchInput" type="text" name="searchString" placeholder="Введите текст для поиска" class="form-control mr-2">
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterDistrictNumber" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Номер района</label>
+            <select name="selectedDistrictNumber" class="form-control mr-2">
+                @foreach (var districtNumber in ViewBag.DistrictNumbers)
+                {
+                    <option value="@districtNumber">@districtNumber</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterDoctor" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">ФИО Доктора</label>
+            <select name="selectedDoctor" class="form-control mr-2">
+                @foreach (var doctor in ViewBag.Doctors)
+                {
+                    <option value="@doctor.Id">@doctor.FullName</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Применить фильтры</button>
+        <p>Найдено записей: @ViewBag.districtsCount</p>
     </form>
-    <a asp-action="Create">Добавить новый район</a>
+    <div class="col-md-9" style="margin-top: 10px; margin-bottom: 10px;">
+        @if (User.IsInRole("admin"))
+        {
+            <a asp-action="Create" class="btn btn-primary">Создать новую запись</a>
+        }
+    </div>
 </p>
-
 <table class="table">
     <thead>
         <tr>

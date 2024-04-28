@@ -15,7 +15,7 @@ namespace Clinic.Controllers
         }
 
         // GET: District
-        public IActionResult Index(string sortOrder, string searchString)
+        public IActionResult Index(string sortOrder, string searchString, int? selectedDoctor, int? selectedDistrictNumber, bool? filterDistrictNumber, bool? filterDoctor)
         {
             IQueryable<District> districts = _context.Districts.Include(d => d.Doctor);
 
@@ -27,6 +27,16 @@ namespace Clinic.Controllers
                     d.DistrictNumber.ToString().Contains(searchString) ||
                     (d.Doctor.LastName.ToLower() + " " + d.Doctor.FirstName.ToLower() + " " + d.Doctor.MiddleName.ToLower()).Contains(searchString)
                 );
+            }
+
+            if (filterDoctor == true)
+            {
+                districts = districts.Where(ds => ds.DoctorId == selectedDoctor);
+            }
+
+            if (filterDistrictNumber == true)
+            {
+                districts = districts.Where(ds => ds.DistrictNumber == selectedDistrictNumber);
             }
 
             ViewData["CurrentSort"] = sortOrder;
@@ -43,10 +53,10 @@ namespace Clinic.Controllers
                     districts = districts.OrderByDescending(d => d.DistrictNumber);
                     break;
                 case "doctor_asc":
-                    districts = districts.OrderBy(d => d.Doctor.MiddleName).ThenBy(d => d.Doctor.FirstName).ThenBy(d => d.Doctor.LastName);
+                    districts = districts.OrderBy(d => d.Doctor.LastName).ThenBy(d => d.Doctor.FirstName).ThenBy(d => d.Doctor.MiddleName);
                     break;
                 case "doctor_desc":
-                    districts = districts.OrderByDescending(d => d.Doctor.MiddleName).ThenByDescending(d => d.Doctor.FirstName).ThenByDescending(d => d.Doctor.LastName);
+                    districts = districts.OrderByDescending(d => d.Doctor.LastName).ThenByDescending(d => d.Doctor.FirstName).ThenByDescending(d => d.Doctor.MiddleName);
                     break;
                 case "id_desc":
                     districts = districts.OrderByDescending(d => d.Id);
@@ -55,7 +65,10 @@ namespace Clinic.Controllers
                     districts = districts.OrderBy(d => d.Id);
                     break;
             }
-
+            int districtsCount = districts.Count();
+            ViewBag.districtsCount = districtsCount;
+            ViewBag.Doctors = _context.Doctors.Select(d => new { Id = d.Id, FullName = $"{d.LastName} {d.FirstName} {d.MiddleName}" }).ToList();
+            ViewBag.DistrictNumbers = _context.Districts.Select(d => d.DistrictNumber).Distinct().ToList();
             return View(districts.ToList());
         }
 
