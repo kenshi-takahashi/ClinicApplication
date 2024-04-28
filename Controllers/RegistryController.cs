@@ -18,7 +18,7 @@ namespace Clinic.Controllers
         }
 
         // GET: Registry
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, bool filterSubdivisionName, string selectedSubdivisionName, bool filterOrganizationType, string selectedOrganizationType, bool filterCity, string selectedCity, bool filterRecordingMethod, int? selectedRecordingMethod)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["SubdivisionNameSortParam"] = sortOrder == "subdivision_asc" ? "subdivision_desc" : "subdivision_asc";
@@ -29,6 +29,11 @@ namespace Clinic.Controllers
             ViewData["HouseNumberSortParam"] = sortOrder == "house_asc" ? "house_desc" : "house_asc";
             ViewData["CitySortParam"] = sortOrder == "city_asc" ? "city_desc" : "city_asc";
             ViewData["RecordingMethodSortParam"] = sortOrder == "recording_asc" ? "recording_desc" : "recording_asc";
+
+            ViewBag.SubdivisionNames = _context.Registries.Select(p => p.SubdivisionName).Distinct().ToList();
+            ViewBag.OrganizationTypes = _context.Registries.Select(p => p.OrganizationType).Distinct().ToList();
+            ViewBag.Cities = _context.Registries.Select(p => p.City).Distinct().ToList();
+            ViewBag.RecordingMethods = _context.RecordingMethods.Select(p => new { Id = p.Id, Name = $"{p.Name}"}).ToList();
 
             var registries = _context.Registries
                 .Include(r => r.RecordingMethod)
@@ -45,6 +50,26 @@ namespace Clinic.Controllers
                     r.HouseNumber.Contains(searchString) ||
                     r.City.Contains(searchString) ||
                     r.RecordingMethod.Name.Contains(searchString));
+            }
+
+            if (filterSubdivisionName)
+            {
+                registries = registries.Where(p => p.SubdivisionName == selectedSubdivisionName);
+            }
+
+            if (filterOrganizationType)
+            {
+                registries = registries.Where(p => p.OrganizationType == selectedOrganizationType);
+            }
+
+            if (filterCity)
+            {
+                registries = registries.Where(p => p.City == selectedCity);
+            }
+
+            if (filterRecordingMethod)
+            {
+                registries = registries.Where(p => p.RecordingMethodId == selectedRecordingMethod.Value);
             }
 
             switch (sortOrder)
@@ -101,6 +126,9 @@ namespace Clinic.Controllers
                     registries = registries.OrderBy(r => r.SubdivisionName);
                     break;
             }
+
+            int registriesCount = await registries.CountAsync();
+            ViewBag.registriesCount = registriesCount;
 
             return View(await registries.ToListAsync());
         }

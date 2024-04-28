@@ -17,7 +17,7 @@
         }
         else if (ViewData["CurrentSort"] as string == columnName.Replace("_asc", "_desc"))
         {
-            return ""; // Стрелка вверх
+            return "";
         }
         return "";
     }
@@ -49,14 +49,61 @@
 <h2>Регистратура</h2>
 
 <p>
-    <a asp-action="Create">Добавить регистратуру</a>
+    <form id="searchForm" asp-controller="Registry" asp-action="Index" method="get">
+        <div class="form-group" style="margin-bottom: 10px;">
+            <label for="searchInput" class="mr-2">Поиск</label>
+            <input id="searchInput" type="text" name="searchString" placeholder="Введите текст для поиска" class="form-control mr-2">
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterSubdivisionName" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Название подразделения</label>
+            <select name="selectedSubdivisionName" class="form-control mr-2">
+                @foreach (var subdivisionName in ViewBag.SubdivisionNames)
+                {
+                    <option value="@subdivisionName">@subdivisionName</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterOrganizationType" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Тип организации</label>
+            <select name="selectedOrganizationType" class="form-control mr-2">
+                @foreach (var organizationType in ViewBag.OrganizationTypes)
+                {
+                    <option value="@organizationType">@organizationType</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterCity" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Город</label>
+            <select name="selectedCity" class="form-control mr-2">
+                @foreach (var city in ViewBag.Cities)
+                {
+                    <option value="@city">@city</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterRecordingMethod" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Метод записи</label>
+            <select name="selectedRecordingMethod" class="form-control mr-2">
+                @foreach (var recordingMethod in ViewBag.RecordingMethods)
+                {
+                    <option value="@recordingMethod.Id">@recordingMethod.Name</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Применить фильтры</button>
+        <p>Найдено записей: @ViewBag.registriesCount</p>
+    </form>
+    <div class="col-md-9" style="margin-top: 10px; margin-bottom: 10px;">
+        @if (User.IsInRole("admin"))
+        {
+            <a asp-action="Create" class="btn btn-primary">Создать новую запись</a>
+        }
+    </div>
 </p>
-<form id="searchForm" asp-controller="Registry" asp-action="Index" method="get">
-    <p>
-        <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
-    </p>
-</form>
-<div class="table-container">
 <table class="table table-light table-striped table-hover table-bordered table-registry">
     <thead>
         <tr>
