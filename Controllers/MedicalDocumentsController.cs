@@ -17,7 +17,7 @@ namespace Clinic.Controllers
         }
 
         // GET: MedicalDocuments
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string selectedName, string selectedDescription, string selectedPatient, bool? filterName, bool? filterDescription, bool? filterPatient)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParam"] = sortOrder == "name_desc" ? "name_asc" : "name_desc";
@@ -31,6 +31,21 @@ namespace Clinic.Controllers
             if (!string.IsNullOrEmpty(searchString))
             {
                 medicalDocuments = medicalDocuments.Where(m => m.Name.Contains(searchString) || m.Description.Contains(searchString) || (m.Patient.MiddleName + " " + m.Patient.FirstName + " " + m.Patient.LastName).Contains(searchString));
+            }
+
+            if (filterName == true)
+            {
+                medicalDocuments = medicalDocuments.Where(m => m.Name == selectedName);
+            }
+
+            if (filterDescription == true)
+            {
+                medicalDocuments = medicalDocuments.Where(m => m.Description == selectedDescription);
+            }
+
+            if (filterPatient == true)
+            {
+                medicalDocuments = medicalDocuments.Where(m => (m.Patient.MiddleName + " " + m.Patient.FirstName + " " + m.Patient.LastName) == selectedPatient);
             }
 
             switch (sortOrder)
@@ -55,8 +70,14 @@ namespace Clinic.Controllers
                     break;
             }
 
+            int medicalDocumentsCount = medicalDocuments.Count();
+            ViewBag.medicalDocumentsCount = medicalDocumentsCount;
+            ViewBag.Name = _context.MedicalDocuments.Select(d => d.Name).Distinct().ToList();
+            ViewBag.Description = _context.MedicalDocuments.Select(d => d.Description).Distinct().ToList();
+            ViewBag.Patient = _context.Patients.Select(d => d.FullName).Distinct().ToList();
             return View(await medicalDocuments.ToListAsync());
         }
+
 
         // GET: MedicalDocuments/Details/5
         public async Task<IActionResult> Details(int? id)

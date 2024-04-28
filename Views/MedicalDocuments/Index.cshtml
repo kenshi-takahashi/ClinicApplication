@@ -26,13 +26,50 @@
 <h1>Медицинские документы</h1>
 
 <p>
-    <a asp-action="Create">Добавить медицинский документ</a>
+    <form id="searchForm" asp-controller="MedicalDocuments" asp-action="Index" method="get">
+        <div  class="form-group" style="margin-bottom: 10px;">
+            <label for="searchInput" class="mr-2">Поиск</label>
+            <input id="searchInput" type="text" name="searchString" placeholder="Введите текст для поиска" class="form-control mr-2">
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterName" value="true" class="form-check-input"><label class="form-check-label mr-2">Название документа</label>
+            <select name="selectedName" class="form-control mr-2">
+                @foreach (var name in ViewBag.Name)
+                {
+                        <option value="@name">@name</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterDescription" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Описание документа</label>
+            <select name="selectedDescription" class="form-control mr-2">
+                @foreach (var description in ViewBag.Description)
+                {
+                        <option value="@description">@description</option>
+                }
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="checkbox" name="filterPatient" value="true" class="form-check-input">
+            <label class="form-check-label mr-2">Пациент</label>
+            <select name="selectedPatient" class="form-control mr-2">
+                @foreach (var patient in ViewBag.Patient)
+                {
+                        <option value="@patient">@patient</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Применить фильтры</button>
+        <p>Найдено записей: @ViewBag.medicalDocumentsCount</p>
+    </form>
+    <div class="col-md-9" style="margin-top: 10px; margin-bottom: 10px;">
+        @if (User.IsInRole("admin"))
+        {
+                <a asp-action="Create" class="btn btn-primary">Создать новую запись</a>
+        }
+    </div>
 </p>
-<form id="searchForm" asp-controller="MedicalDocuments" asp-action="Index" method="get">
-    <p>
-        <input id="searchInput" type="text" name="searchString" placeholder="Поиск">
-    </p>
-</form>
 <table class="table">
     <thead>
         <tr>
