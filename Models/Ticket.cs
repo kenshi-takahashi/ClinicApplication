@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Clinic.Models;
+namespace Сlinic.Models;
 
 public partial class Ticket
 {
@@ -13,5 +13,9 @@ public partial class Ticket
 
     public TimeOnly? AppointmentTime { get; set; }
 
+    public int? PatientId { get; set; }
+
     public virtual Doctor? Doctor { get; set; }
+
+    public virtual Patient? Patient { get; set; }
 }

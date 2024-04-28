@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Clinic.Models;
+namespace Сlinic.Models;
 
 public partial class Doctor
 {
@@ -17,8 +17,6 @@ public partial class Doctor
 
     public int? RegistryId { get; set; }
 
-    public virtual ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
-
     public virtual ICollection<DisabilitySheet> DisabilitySheets { get; set; } = new List<DisabilitySheet>();
 
     public virtual ICollection<District> Districts { get; set; } = new List<District>();
@@ -30,12 +28,4 @@ public partial class Doctor
     public virtual DoctorSpecialty? Specialty { get; set; }
 
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
-    public string FullName
-    {
-        get
-        {
-            return $"{LastName} {FirstName} {MiddleName}";
-        }
-    }
-
 }

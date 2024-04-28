@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clinic.Models;
+namespace Сlinic.Models;
 
 public partial class ClinicDbContext : DbContext
 {
@@ -14,8 +14,6 @@ public partial class ClinicDbContext : DbContext
         : base(options)
     {
     }
-
-    public virtual DbSet<Appointment> Appointments { get; set; }
 
     public virtual DbSet<DisabilitySheet> DisabilitySheets { get; set; }
 
@@ -53,28 +51,6 @@ public partial class ClinicDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Appointment>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__Appointm__3214EC2710CC7DFD");
-
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("ID");
-            entity.Property(e => e.Description).HasMaxLength(500);
-            entity.Property(e => e.DoctorId).HasColumnName("Doctor_ID");
-            entity.Property(e => e.PatientId).HasColumnName("Patient_ID");
-
-            entity.HasOne(d => d.Doctor).WithMany(p => p.Appointments)
-                .HasForeignKey(d => d.DoctorId)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK_Appointments_Doctors");
-
-            entity.HasOne(d => d.Patient).WithMany(p => p.Appointments)
-                .HasForeignKey(d => d.PatientId)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasConstraintName("FK_Appointments_Patients");
-        });
-
         modelBuilder.Entity<DisabilitySheet>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Disabili__3214EC278250AC62");
@@ -347,11 +323,17 @@ public partial class ClinicDbContext : DbContext
             entity.Property(e => e.AppointmentDate).HasColumnName("Appointment_Date");
             entity.Property(e => e.AppointmentTime).HasColumnName("Appointment_Time");
             entity.Property(e => e.DoctorId).HasColumnName("Doctor_ID");
+            entity.Property(e => e.PatientId).HasColumnName("Patient_ID");
 
             entity.HasOne(d => d.Doctor).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.DoctorId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Tickets_Doctors");
+
+            entity.HasOne(d => d.Patient).WithMany(p => p.Tickets)
+                .HasForeignKey(d => d.PatientId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Tickets_Patients");
         });
 
         modelBuilder.Entity<User>(entity =>
