@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Сlinic.Models;
+namespace Clinic.Models;
 
 public partial class Doctor
 {
@@ -28,4 +28,12 @@ public partial class Doctor
     public virtual DoctorSpecialty? Specialty { get; set; }
 
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+
+    public string FullName
+        {
+            get
+            {
+                return (LastName ?? "") + " " + (FirstName ?? "") + " " + (MiddleName ?? "");
+            }
+        }
 }

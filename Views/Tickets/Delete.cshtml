@@ -35,6 +35,12 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.AppointmentTime)
         </dd>
+        <dt class="col-sm-2">
+            Пациент
+        </dt>
+        <dd class="col-sm-10">
+            @($"{Model.Patient.LastName} {Model.Patient.FirstName} {Model.Patient.MiddleName}")
+        </dd>
     </dl>
 </div>
 

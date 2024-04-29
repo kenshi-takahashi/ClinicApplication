@@ -61,6 +61,16 @@
                 <label class="form-check-label mr-2">Дата до</label>
                 <input type="date" name="selectedDateTo" class="form-control mr-2">
             </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="filterPatient" value="true" class="form-check-input">
+                <label class="form-check-label mr-2">ФИО пациента</label>
+                <select name="selectedPatient" class="form-control mr-2">
+                    @foreach (var patient in ViewBag.Patients)
+                    {
+                        <option value="@patient.Id">@patient.FullName</option>
+                    }
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Применить фильтры</button>
         </form>
         <p>Найдено записей: @ViewBag.ticketsCount</p>
@@ -95,6 +105,12 @@
                     @Html.Raw(GetSortArrow("appointment_time_asc") + GetSortArrow("appointment_time_desc"))
                 </a>
             </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PatientSortParam"]">
+                    ФИО пациента 
+                    @Html.Raw(GetSortArrow("patient_asc"))
+                </a>
+            </th>
             @if (User.IsInRole("admin"))
             {
                 <th>Действия</th>
@@ -117,6 +133,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.AppointmentTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patient.FullName)
                 </td>
                 @if (User.IsInRole("admin"))
                     {

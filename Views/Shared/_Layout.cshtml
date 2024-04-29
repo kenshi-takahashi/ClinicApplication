@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Clinic.Helpers
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -30,7 +32,6 @@
                             Таблицы
                         </a>
                         <div class="dropdown-menu dropdown-menu-animated" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" asp-area="" asp-controller="Appointment" asp-action="Index">Список встреч</a>
                             <a class="dropdown-item" asp-area="" asp-controller="Doctors" asp-action="Index">Доктора</a>
                             <a class="dropdown-item" asp-area="" asp-controller="DisabilitySheet" asp-action="Index">Листы нетрудоспособности</a>
                             <a class="dropdown-item" asp-area="" asp-controller="District" asp-action="Index">Районы</a>
@@ -51,8 +52,11 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div id="userMenu" style="cursor: pointer">
-                            <span class="nav-link theme-text-color" onclick="toggleMenu()">@User.Identity.Name</span>
+                            <span class="nav-link theme-text-color" onclick="toggleMenu()">
+                                @Html.GetUserName()
+                            </span>
                         </div>
+
                         <div id="logoutMenu" class="hidden bg-dark">
                             <form asp-controller="Account" asp-action="Logout" method="post" style="display: flex; flex-direction: column; flex-wrap: wrap;">
                                 <button type="submit" class="btn btn-primary">Выйти</button>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Сlinic.Models;
+namespace Clinic.Models;
 
 public partial class Patient
 {
@@ -30,4 +30,12 @@ public partial class Patient
     public virtual ICollection<ReasonsForVisit> ReasonsForVisits { get; set; } = new List<ReasonsForVisit>();
 
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+
+    public string FullName
+    {
+        get
+        {
+            return (LastName ?? "") + " " + (FirstName ?? "") + " " + (MiddleName ?? "");
+        }
+    }
 }

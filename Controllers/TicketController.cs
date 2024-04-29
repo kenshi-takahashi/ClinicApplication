@@ -18,19 +18,22 @@ namespace Clinic.Controllers
         }
 
         // GET: Tickets
-        public async Task<IActionResult> Index(string sortOrder, string searchString, bool? filterDoctor, int? selectedDoctor, bool? filterSpecialty, int? selectedSpecialty, DateOnly? selectedDateFrom, DateOnly? selectedDateTo, bool? filterDateFrom, bool? filterDateTo)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, bool? filterDoctor, int? selectedDoctor, bool? filterSpecialty, int? selectedSpecialty, DateOnly? selectedDateFrom, DateOnly? selectedDateTo, bool? filterDateFrom, bool? filterDateTo, bool? filterPatient, int? selectedPatient)
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["DoctorSortParam"] = sortOrder == "doctor_asc" ? "doctor_desc" : "doctor_asc";
             ViewData["AppointmentDateSortParam"] = sortOrder == "appointment_date_asc" ? "appointment_date_desc" : "appointment_date_asc";
             ViewData["AppointmentTimeSortParam"] = sortOrder == "appointment_time_asc" ? "appointment_time_desc" : "appointment_time_asc";
+            ViewData["PatientSortParam"] = sortOrder == "patient_asc" ? "patient_desc" : "patient_asc";
 
             ViewBag.Doctors = _context.Doctors.Select(d => new { Id = d.Id, FullName = $"{d.LastName} {d.FirstName} {d.MiddleName}" }).ToList();
+            ViewBag.Patients = _context.Patients.Select(p => new { Id = p.Id, FullName = $"{p.LastName} {p.FirstName} {p.MiddleName}" }).ToList();
             ViewBag.Specialties = await _context.DoctorSpecialties.ToListAsync();
 
             var tickets = _context.Tickets
                 .Include(t => t.Doctor)
                 .ThenInclude(d => d.Specialty)
+                .Include(d => d.Patient)
                 .AsNoTracking();
 
             if (!string.IsNullOrEmpty(searchString))
@@ -64,6 +67,11 @@ namespace Clinic.Controllers
                 tickets = tickets.Where(ds => ds.AppointmentDate <= selectedDateTo);
             }
 
+            if (filterPatient == true && selectedPatient.HasValue)
+            {
+                tickets = tickets.Where(a => a.PatientId == selectedPatient.Value);
+            }
+
             switch (sortOrder)
             {
                 case "doctor_desc":
@@ -83,6 +91,12 @@ namespace Clinic.Controllers
                     break;
                 case "appointment_time_asc":
                     tickets = tickets.OrderBy(t => t.AppointmentTime);
+                    break;
+                case "patient_asc":
+                    tickets = tickets.OrderBy(a => a.Patient.LastName).ThenBy(a => a.Patient.FirstName).ThenBy(a => a.Patient.MiddleName);
+                    break;
+                case "patient_desc":
+                    tickets = tickets.OrderByDescending(a => a.Patient.LastName).ThenByDescending(a => a.Patient.FirstName).ThenByDescending(a => a.Patient.MiddleName);
                     break;
                 default:
                     tickets = tickets.OrderBy(t => t.Doctor.LastName);
@@ -118,13 +132,14 @@ namespace Clinic.Controllers
         public IActionResult Create()
         {
             ViewData["DoctorId"] = new SelectList(_context.Doctors.Include(d => d.Specialty), "Id", "FullName");
+            ViewBag.Patients = _context.Patients.Select(p => new { Id = p.Id, FullName = $"{p.LastName} {p.FirstName} {p.MiddleName}" }).ToList();
             return View();
         }
 
         // POST: Tickets/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DoctorId,AppointmentDate,AppointmentTime")] Ticket ticket)
+        public async Task<IActionResult> Create([Bind("Id,DoctorId,AppointmentDate,AppointmentTime,PatientId")] Ticket ticket)
         {
             if (ModelState.IsValid)
             {
@@ -186,13 +201,14 @@ namespace Clinic.Controllers
                 return NotFound();
             }
             ViewData["DoctorId"] = new SelectList(_context.Doctors.Include(d => d.Specialty), "Id", "FullName", ticket.DoctorId);
+            ViewBag.Patients = await _context.Patients.Select(p => new { Id = p.Id, FullName = $"{p.LastName} {p.FirstName} {p.MiddleName}" }).ToListAsync();
             return View(ticket);
         }
 
         // POST: Tickets/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DoctorId,AppointmentDate,AppointmentTime")] Ticket ticket)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DoctorId,AppointmentDate,AppointmentTime,PatientId")] Ticket ticket)
         {
             if (id != ticket.Id)
             {
@@ -234,6 +250,7 @@ namespace Clinic.Controllers
             var ticket = await _context.Tickets
                 .Include(t => t.Doctor)
                 .ThenInclude(d => d.Specialty)
+                .Include(a => a.Patient)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (ticket == null)
             {

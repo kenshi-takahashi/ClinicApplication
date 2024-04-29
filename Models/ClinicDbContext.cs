@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Сlinic.Models;
+namespace Clinic.Models;
 
 public partial class ClinicDbContext : DbContext
 {

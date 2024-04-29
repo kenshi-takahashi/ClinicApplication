@@ -23,6 +23,15 @@
         <span asp-validation-for="AppointmentTime" class="text-danger"></span>
     </div>
     <div class="form-group">
+        <label asp-for="PatientId" class="font-weight-bold">Пациент</label>
+        <select asp-for="PatientId" class="form-control">
+            @foreach (var patient in ViewBag.Patients)
+            {
+                <option value="@patient.Id">@patient.FullName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
         <input type="submit" value="Создать" class="btn btn-primary" />
         <a href="@Url.Action("Index", "Tickets")" class="btn btn-secondary">Отмена</a>
     </div>

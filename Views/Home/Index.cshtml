@@ -1,4 +1,4 @@
-﻿@model Tuple<List<Appointment>, List<Ticket>>
+﻿@model List<Ticket>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -10,43 +10,24 @@
 }
 else
 {
-    <h2>Appointments</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Описание</th>
-                <th>ФИО доктора</th>
-                <th>ФИО пациента</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var appointment in Model.Item1)
-            {
-                <tr>
-                    <td>@appointment.Description</td>
-                    <td>@(appointment.Doctor != null ? appointment.Doctor.FullName : "")</td>
-                    <td>@(appointment.Patient != null ? appointment.Patient.FullName : "")</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <h2>Tickets</h2>
+    <h2>Талоны</h2>
     <table class="table">
         <thead>
             <tr>
                 <th>Дата</th>
                 <th>Время</th>
                 <th>ФИО доктора</th>
+                <th>ФИО пациента</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var ticket in Model.Item2)
+            @foreach (var ticket in Model)
             {
                 <tr>
                     <td>@ticket.AppointmentDate</td>
                     <td>@ticket.AppointmentTime</td>
                     <td>@(ticket.Doctor != null ? ticket.Doctor.FullName : "")</td>
+                    <td>@(ticket.Patient != null ? ticket.Patient.FullName : "")</td>
                 </tr>
             }
         </tbody>

@@ -19,7 +19,6 @@ namespace Clinic.Controllers
             return View();
         }
 
-
         public IActionResult Index()
         {
             var userEmail = User.Identity.Name; // Получить email текущего пользователя
@@ -27,20 +26,18 @@ namespace Clinic.Controllers
 
             if (patient != null)
             {
-                var appointments = _context.Appointments
-                    .Where(a => a.PatientId == patient.Id)
-                    .Include(a => a.Doctor)
+                var tickets = _context.Tickets
+                    .Where(t => t.PatientId == patient.Id)
+                    .Include(t => t.Doctor)
+                    .Include(t => t.Patient)
                     .ToList();
 
-                var appointmentIds = appointments.Select(a => a.Id).ToList();
-                var tickets = _context.Tickets.Where(t => appointmentIds.Contains(t.Id)).ToList();
-
-                return View(Tuple.Create(appointments, tickets)); // Передать записи в представление
+                return View(tickets); // Передать записи в представление
             }
             else
             {
                 ViewBag.ErrorMessage = "Упс... Пациента с таким номером телефона не существует";
-                return View(Tuple.Create(new List<Appointment>(), new List<Ticket>()));
+                return View(new List<Ticket>());
             }
         }
     }

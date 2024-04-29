@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Сlinic.Models;
+namespace Clinic.Models;
 
 public partial class OutpatientCard
 {
