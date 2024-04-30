@@ -208,7 +208,7 @@ namespace Clinic.Controllers
         // POST: Tickets/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DoctorId,AppointmentDate,AppointmentTime,PatientId")] Ticket ticket)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DoctorId,AppointmentDate,AppointmentTime,")] Ticket ticket)
         {
             if (id != ticket.Id)
             {

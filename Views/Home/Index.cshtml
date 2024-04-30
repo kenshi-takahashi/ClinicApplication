@@ -1,35 +1,286 @@
-﻿@model List<Ticket>
+﻿@model Clinic.ViewModels.HomeViewModel
 
 @{
     ViewData["Title"] = "Home Page";
+    string GetSortArrow(string columnName)
+    {
+        if (ViewData["CurrentSort"] as string == columnName)
+        {
+            if ((string)ViewData["CurrentSort"] == "doctor_asc" || (string)ViewData["CurrentSort"] == "dayofweek_asc" || (string)ViewData["CurrentSort"] == "starttime_asc" || (string)ViewData["CurrentSort"] == "endtime_asc")
+            {
+                return "▼"; // Стрелка вниз
+            }
+            else
+            {
+                return "▲"; // Стрелка вверх
+            }
+        }
+        else if (ViewData["CurrentSort"] as string == columnName.Replace("_asc", "_desc"))
+        {
+            return ""; // Стрелка вверх
+        }
+        return "";
+    }
 }
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @if (ViewBag.ErrorMessage != null)
 {
     <h2>@ViewBag.ErrorMessage</h2>
 }
 else
 {
-    <h2>Талоны</h2>
+    <h1>Здравствуйте, @Html.Raw(ViewData["UserFullName"])!</h1>
+    <details>
+        <summary style="font-size: 30px;">
+            Ваши талоны
+        </summary>
+
+        <div>
+            <form id="searchForm" asp-controller="Home" asp-action="Index" method="get" class="form-inline">
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label for="searchInput2" class="mr-2">Поиск</label>
+                    <input id="searchInput2" type="text" name="searchString2" placeholder="Введите текст для поиска" class="form-control mr-2">
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="filterDoctor1" value="true" class="form-check-input">
+                    <label class="form-check-label mr-2">ФИО врача</label>
+                    <select name="selectedDoctor1" class="form-control mr-2">
+                        @foreach (var doctor in ViewBag.Doctors)
+                        {
+                            <option value="@doctor.Id">@doctor.FullName</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="filterSpecialty" value="true" class="form-check-input">
+                    <label class="form-check-label mr-2">Специальность</label>
+                    <select name="selectedSpecialty" class="form-control mr-2">
+                        @foreach (var specialty in ViewBag.Specialties)
+                        {
+                            <option value="@specialty.Id">@specialty.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="filterDateFrom" value="true" class="form-check-input">
+                    <label class="form-check-label mr-2">Дата от</label>
+                    <input type="date" name="selectedDateFrom" class="form-control mr-2">
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="filterDateTo" value="true" class="form-check-input">
+                    <label class="form-check-label mr-2">Дата до</label>
+                    <input type="date" name="selectedDateTo" class="form-control mr-2">
+                </div>
+                <button type="submit" class="btn btn-primary">Применить фильтры</button>
+            </form>
+        </div>
+        <div class="col-md-9" style="margin-top: 10px; margin-bottom: 10px;">
+            <a asp-action="Create" class="btn btn-primary">Записаться на прием</a>
+        </div>
+        <table class="table" id="ticketsTableBody">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["AppointmentDateSortParam"]">
+                            Дата
+                            @if (ViewData["CurrentSort"] == "appointment_date_asc")
+                            {
+                                <span>▲</span>
+                            }
+                            else if (ViewData["CurrentSort"] == "appointment_date_desc")
+                            {
+                                <span>▼</span>
+                            }
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["AppointmentTimeSortParam"]">
+                            Время
+                            @if (ViewData["CurrentSort"] == "appointment_time_asc")
+                            {
+                                <span>▲</span>
+                            }
+                            else if (ViewData["CurrentSort"] == "appointment_time_desc")
+                            {
+                                <span>▼</span>
+                            }
+                        </a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DoctorSortParam"]">
+                            ФИО доктора
+                            @if (ViewData["CurrentSort"] == "doctor_asc")
+                            {
+                                <span>▲</span>
+                            }
+                            else if (ViewData["CurrentSort"] == "doctor_desc")
+                            {
+                                <span>▼</span>
+                            }
+                        </a>
+                    </th>
+                    <th>
+                        Специальность доктора
+                    </th>
+                    <th>
+                        ФИО пациента
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in Model.Tickets)
+                {
+                    <tr>
+                        <td>@ticket.AppointmentDate</td>
+                        <td>@ticket.AppointmentTime</td>
+                        <td>@(ticket.Doctor != null ? ticket.Doctor.FullName : "")</td>
+                        <td>@(ticket.Doctor != null && ticket.Doctor.Specialty != null ? ticket.Doctor.Specialty.Name : "")</td>
+                        <td>@(ticket.Patient != null ? ticket.Patient.FullName : "")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </details>
+    <details>
+        <summary style="font-size: 30px;">Расписание врачей</summary>
+        <p>
+        <form id="searchForm" asp-controller="Home" asp-action="Index" method="get">
+            <div class="form-group" style="margin-bottom: 10px;">
+                <label for="searchInput1" class="mr-2">Поиск</label>
+                <input id="searchInput1" type="text" name="searchString1" placeholder="Введите текст для поиска" class="form-control mr-2">
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="filterDoctor" value="true" class="form-check-input">
+                <label class="form-check-label mr-2">Доктор</label>
+                <select name="selectedDoctor" class="form-control mr-2">
+                    @foreach (var doctor in ViewBag.Doctors)
+                    {
+                        <option value="@doctor.Id">@doctor.FullName</option>
+                    }
+                </select>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" name="filterDay" value="true" class="form-check-input">
+                <label class="form-check-label mr-2">День недели</label>
+                <select name="selectedDay" class="form-control mr-2">
+                    @foreach (var day in ViewBag.Days)
+                    {
+                        <option value="@day">@day</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Применить фильтры</button>
+            <p>Найдено записей: @ViewBag.schedulesCount</p>
+        </form>
+        <div class="col-md-9" style="margin-top: 10px; margin-bottom: 10px;">
+            @if (User.IsInRole("admin"))
+            {
+                <a asp-action="Create" class="btn btn-primary">Создать новую запись</a>
+            }
+        </div>
+    </p>
     <table class="table">
         <thead>
             <tr>
-                <th>Дата</th>
-                <th>Время</th>
-                <th>ФИО доктора</th>
-                <th>ФИО пациента</th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DoctorSortParam"]">
+                        Доктор
+                        @Html.Raw(GetSortArrow("doctor_asc") + GetSortArrow("doctor_desc"))
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DayOfWeekSortParam"]">
+                        День недели
+                        @Html.Raw(GetSortArrow("dayofweek_asc") + GetSortArrow("dayofweek_desc"))
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["StartTimeSortParam"]">
+                        Начало приёма
+                        @Html.Raw(GetSortArrow("starttime_asc") + GetSortArrow("starttime_desc"))
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["EndTimeSortParam"]">
+                        Конец приёма
+                        @Html.Raw(GetSortArrow("endtime_asc") + GetSortArrow("endtime_desc"))
+                    </a>
+                </th>
+                @if (User.IsInRole("admin"))
+                {
+                    <th>Действия</th>
+                }
             </tr>
         </thead>
-        <tbody>
-            @foreach (var ticket in Model)
+
+        <tbody id="schedulesTableBody">
+            @foreach (var item in Model.Schedules)
             {
                 <tr>
-                    <td>@ticket.AppointmentDate</td>
-                    <td>@ticket.AppointmentTime</td>
-                    <td>@(ticket.Doctor != null ? ticket.Doctor.FullName : "")</td>
-                    <td>@(ticket.Patient != null ? ticket.Patient.FullName : "")</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Doctor.LastName) @Html.DisplayFor(modelItem => item.Doctor.FirstName) @Html.DisplayFor(modelItem => item.Doctor.MiddleName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DayOfWeek)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTime)
+                    </td>
+                    @if (User.IsInRole("admin"))
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                            </td>
+                        }
                 </tr>
             }
         </tbody>
     </table>
+    </details>
 }
+<script>
+$(document).ready(function () {
+    // Поиск для талонов
+    $('#searchInput2').on('input', function () {
+        var searchString = $(this).val().toLowerCase();
+        var form = $(this).closest('form');
+        var actionUrl = form.attr('action');
+        var method = form.attr('method');
+
+        $.ajax({
+            url: actionUrl,
+            type: method,
+            data: form.serialize(),
+            success: function (data) {
+                var newTBody = $(data).find('#ticketsTableBody');
+                $('#ticketsTableBody').replaceWith(newTBody);
+            }
+        });
+    });
+
+    // Поиск для расписания врачей
+    $('#searchInput1').on('input', function () {
+        var searchString = $(this).val().toLowerCase();
+        var form = $(this).closest('form');
+        var actionUrl = form.attr('action');
+        var method = form.attr('method');
+
+        $.ajax({
+            url: actionUrl,
+            type: method,
+            data: form.serialize(),
+            success: function (data) {
+                var newTBody = $(data).find('#schedulesTableBody');
+                $('#schedulesTableBody').replaceWith(newTBody);
+            }
+        });
+    });
+});
+
+
+
+</script>
