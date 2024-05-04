@@ -22,6 +22,59 @@
         return "";
     }
 }
+<style>
+/* Light theme */
+body:not(.dark-theme) details {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-theme) summary {
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  color: #333;
+}
+
+body:not(.dark-theme) summary:hover {
+  background-color: #eee;
+}
+
+body:not(.dark-theme) details[open] summary {
+  background-color: #ccc;
+  color: #333;
+}
+
+/* Dark theme */
+body.dark-theme details {
+  background-color: #333;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme summary {
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #555;
+  color: #fff;
+}
+
+body.dark-theme summary:hover {
+  background-color: #444;
+}
+
+body.dark-theme details[open] summary {
+  background-color: #555;
+  color: #fff;
+}
+</style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @if (ViewBag.ErrorMessage != null)
 {
@@ -72,6 +125,7 @@ else
                     <input type="date" name="selectedDateTo" class="form-control mr-2">
                 </div>
                 <button type="submit" class="btn btn-primary">Применить фильтры</button>
+                <p>Найдено записей: @ViewBag.ticketsCount</p>
             </form>
         </div>
         <div class="col-md-9" style="margin-top: 10px; margin-bottom: 10px;">
@@ -172,12 +226,6 @@ else
             <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Применить фильтры</button>
             <p>Найдено записей: @ViewBag.schedulesCount</p>
         </form>
-        <div class="col-md-9" style="margin-top: 10px; margin-bottom: 10px;">
-            @if (User.IsInRole("admin"))
-            {
-                <a asp-action="Create" class="btn btn-primary">Создать новую запись</a>
-            }
-        </div>
     </p>
     <table class="table">
         <thead>
@@ -187,6 +235,9 @@ else
                         Доктор
                         @Html.Raw(GetSortArrow("doctor_asc") + GetSortArrow("doctor_desc"))
                     </a>
+                </th>
+                <th>
+                    Специальность
                 </th>
                 <th>
                     <a asp-action="Index" asp-route-sortOrder="@ViewData["DayOfWeekSortParam"]">
@@ -206,10 +257,6 @@ else
                         @Html.Raw(GetSortArrow("endtime_asc") + GetSortArrow("endtime_desc"))
                     </a>
                 </th>
-                @if (User.IsInRole("admin"))
-                {
-                    <th>Действия</th>
-                }
             </tr>
         </thead>
 
@@ -221,6 +268,9 @@ else
                         @Html.DisplayFor(modelItem => item.Doctor.LastName) @Html.DisplayFor(modelItem => item.Doctor.FirstName) @Html.DisplayFor(modelItem => item.Doctor.MiddleName)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Doctor.Specialty.Name)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.DayOfWeek)
                     </td>
                     <td>
@@ -229,13 +279,6 @@ else
                     <td>
                         @Html.DisplayFor(modelItem => item.EndTime)
                     </td>
-                    @if (User.IsInRole("admin"))
-                        {
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
-                                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
-                            </td>
-                        }
                 </tr>
             }
         </tbody>

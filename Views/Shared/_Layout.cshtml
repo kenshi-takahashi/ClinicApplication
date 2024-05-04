@@ -27,68 +27,72 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Таблицы
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-animated" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" asp-area="" asp-controller="Doctors" asp-action="Index">Доктора</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="DisabilitySheet" asp-action="Index">Листы нетрудоспособности</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="District" asp-action="Index">Районы</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="DoctorSpecialties" asp-action="Index">Специальзации докторов</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="MedicalDocuments" asp-action="Index">Медицинские документы</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="OutpatientCards" asp-action="Index">Амбулаторные карты</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Patients" asp-action="Index">Пациенты</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="ReasonsForVisit" asp-action="Index">Причины визитов</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="RecordingMethods" asp-action="Index">Методы ведения учёта</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Registrars" asp-action="Index">Регистраторы</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Registry" asp-action="Index">Регистратура</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Schedule" asp-action="Index">Расписания</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Tickets" asp-action="Index">Талоны</a>
-                        </div>
-                    </li>
-                </ul>
-                <div style="margin-left: auto;">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <div id="userMenu" style="cursor: pointer">
-                            <span class="nav-link theme-text-color" onclick="toggleMenu()">
-                                @Html.GetUserName()
-                            </span>
-                        </div>
+                        @if (User.IsInRole("admin"))
+                        {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Таблицы
+                            </a>
 
-                        <div id="logoutMenu" class="hidden bg-dark">
-                            <form asp-controller="Account" asp-action="Logout" method="post" style="display: flex; flex-direction: column; flex-wrap: wrap;">
-                                <button type="submit" class="btn btn-primary">Выйти</button>
-                            </form>
-                            <button id="theme-toggle" class="btn btn-sm btn-dark">Toggle Theme</button>
-                        </div>
-                    }
-                    else
-                    {
-                        <div>
-                            <a class="nav-link text-switch" asp-controller="Account" asp-action="Login">Войти</a>
-                        </div>
-                    }
+                            <div class="dropdown-menu dropdown-menu-animated" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-area="" asp-controller="Doctors" asp-action="Index">Доктора</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="DisabilitySheet" asp-action="Index">Листы нетрудоспособности</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="District" asp-action="Index">Районы</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="DoctorSpecialties" asp-action="Index">Специальзации докторов</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="MedicalDocuments" asp-action="Index">Медицинские документы</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="OutpatientCards" asp-action="Index">Амбулаторные карты</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Patients" asp-action="Index">Пациенты</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="ReasonsForVisit" asp-action="Index">Причины визитов</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="RecordingMethods" asp-action="Index">Методы ведения учёта</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Registrars" asp-action="Index">Регистраторы</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Registry" asp-action="Index">Регистратура</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Schedule" asp-action="Index">Расписания</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Tickets" asp-action="Index">Талоны</a>
+                            </div>
+                        </li>
+                            }
+                    </ul>
+                    <div style="margin-left: auto;">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                <div id="userMenu" style="cursor: pointer">
+                                    <span class="nav-link theme-text-color" onclick="toggleMenu()">
+                                            @Html.GetUserName()
+                                    </span>
+                                </div>
+
+                                <div id="logoutMenu" class="hidden bg-dark">
+                                    <form asp-controller="Account" asp-action="Logout" method="post" style="display: flex; flex-direction: column; flex-wrap: wrap;">
+                                        <button type="submit" class="btn btn-primary">Выйти</button>
+                                    </form>
+                                    <button id="theme-toggle" class="btn btn-sm btn-dark">Toggle Theme</button>
+                                </div>
+                                }
+                                else
+                                {
+                                <div>
+                                    <a class="nav-link text-switch" asp-controller="Account" asp-action="Login">Войти</a>
+                                </div>
+                                }
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
+        </nav>
+        </header>
         <div class="container">
-            &copy; 2024 - Сlinic - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <main role="main" class="pb-3">
+                                    @RenderBody()
+            </main>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>
+
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2024 - Сlinic - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+                            @await RenderSectionAsync("Scripts", required: false)
+    </body>
+    </html>

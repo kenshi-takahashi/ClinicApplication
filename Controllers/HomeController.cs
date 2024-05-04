@@ -116,6 +116,7 @@ namespace Clinic.Controllers
 
                 var schedules = _context.Schedules
                     .Include(s => s.Doctor)
+                    .ThenInclude(ds => ds.Specialty)
                     .AsNoTracking();
 
                 if (!string.IsNullOrEmpty(searchString1))
@@ -145,6 +146,9 @@ namespace Clinic.Controllers
                     Tickets = tickets.ToList(),
                     Schedules = await schedules.ToListAsync()
                 };
+
+                ViewBag.schedulesCount = schedules.Count();
+                ViewBag.ticketsCount = tickets.Count();
 
                 return View(viewModel);
             }
