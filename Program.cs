@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Clinic.Models; // Подключаем пространство имен моделей вашего проекта
+using Clinic.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,8 +41,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();    // аутентификация
-app.UseAuthorization();     // авторизация
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

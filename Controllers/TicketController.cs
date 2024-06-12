@@ -145,7 +145,6 @@ namespace Clinic.Controllers
             {
                 int maxId = await _context.Tickets.MaxAsync(d => (int?)d.Id) ?? 0;
 
-                // Увеличиваем id на 1 и присваиваем его новой записи
                 ticket.Id = maxId + 1;
 
                 // Проверяем, не занято ли выбранное время у врача

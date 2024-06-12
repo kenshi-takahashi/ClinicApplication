@@ -17,271 +17,271 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Сlinic
 build_property.RootNamespace = Сlinic
-build_property.ProjectDir = E:\ClinicApplication\
+build_property.ProjectDir = e:\ClinicApplication\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = E:\ClinicApplication
+build_property.MSBuildProjectDirectory = e:\ClinicApplication
 build_property._RazorSourceGeneratorDebug = 
 
-[E:/ClinicApplication/Views/Account/Login.cshtml]
+[e:/ClinicApplication/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Account/Register.cshtml]
+[e:/ClinicApplication/Views/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/DisabilitySheet/Create.cshtml]
+[e:/ClinicApplication/Views/DisabilitySheet/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlzYWJpbGl0eVNoZWV0XENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/DisabilitySheet/Delete.cshtml]
+[e:/ClinicApplication/Views/DisabilitySheet/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlzYWJpbGl0eVNoZWV0XERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/DisabilitySheet/Edit.cshtml]
+[e:/ClinicApplication/Views/DisabilitySheet/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlzYWJpbGl0eVNoZWV0XEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/DisabilitySheet/Index.cshtml]
+[e:/ClinicApplication/Views/DisabilitySheet/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlzYWJpbGl0eVNoZWV0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/District/Create.cshtml]
+[e:/ClinicApplication/Views/District/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlzdHJpY3RcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/District/Delete.cshtml]
+[e:/ClinicApplication/Views/District/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlzdHJpY3RcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/District/Edit.cshtml]
+[e:/ClinicApplication/Views/District/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlzdHJpY3RcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/District/Index.cshtml]
+[e:/ClinicApplication/Views/District/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGlzdHJpY3RcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/DoctorSpecialties/Create.cshtml]
+[e:/ClinicApplication/Views/DoctorSpecialties/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yU3BlY2lhbHRpZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/DoctorSpecialties/Delete.cshtml]
+[e:/ClinicApplication/Views/DoctorSpecialties/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yU3BlY2lhbHRpZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/DoctorSpecialties/Edit.cshtml]
+[e:/ClinicApplication/Views/DoctorSpecialties/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yU3BlY2lhbHRpZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/DoctorSpecialties/Index.cshtml]
+[e:/ClinicApplication/Views/DoctorSpecialties/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yU3BlY2lhbHRpZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Doctors/Create.cshtml]
+[e:/ClinicApplication/Views/Doctors/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Doctors/Delete.cshtml]
+[e:/ClinicApplication/Views/Doctors/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Doctors/Details.cshtml]
+[e:/ClinicApplication/Views/Doctors/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Doctors/Edit.cshtml]
+[e:/ClinicApplication/Views/Doctors/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Doctors/Index.cshtml]
+[e:/ClinicApplication/Views/Doctors/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdG9yc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Home/Create.cshtml]
+[e:/ClinicApplication/Views/Home/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Home/Index.cshtml]
+[e:/ClinicApplication/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Home/Privacy.cshtml]
+[e:/ClinicApplication/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/MedicalDocuments/Create.cshtml]
+[e:/ClinicApplication/Views/MedicalDocuments/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbERvY3VtZW50c1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/MedicalDocuments/Delete.cshtml]
+[e:/ClinicApplication/Views/MedicalDocuments/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbERvY3VtZW50c1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/MedicalDocuments/Edit.cshtml]
+[e:/ClinicApplication/Views/MedicalDocuments/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbERvY3VtZW50c1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/MedicalDocuments/Index.cshtml]
+[e:/ClinicApplication/Views/MedicalDocuments/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNhbERvY3VtZW50c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/OutpatientCards/Create.cshtml]
+[e:/ClinicApplication/Views/OutpatientCards/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3V0cGF0aWVudENhcmRzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/OutpatientCards/Delete.cshtml]
+[e:/ClinicApplication/Views/OutpatientCards/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3V0cGF0aWVudENhcmRzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/OutpatientCards/Edit.cshtml]
+[e:/ClinicApplication/Views/OutpatientCards/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3V0cGF0aWVudENhcmRzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/OutpatientCards/Index.cshtml]
+[e:/ClinicApplication/Views/OutpatientCards/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3V0cGF0aWVudENhcmRzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Patients/Create.cshtml]
+[e:/ClinicApplication/Views/Patients/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Patients/Delete.cshtml]
+[e:/ClinicApplication/Views/Patients/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudHNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Patients/Edit.cshtml]
+[e:/ClinicApplication/Views/Patients/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Patients/Index.cshtml]
+[e:/ClinicApplication/Views/Patients/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/ReasonsForVisit/Create.cshtml]
+[e:/ClinicApplication/Views/ReasonsForVisit/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVhc29uc0ZvclZpc2l0XENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/ReasonsForVisit/Delete.cshtml]
+[e:/ClinicApplication/Views/ReasonsForVisit/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVhc29uc0ZvclZpc2l0XERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/ReasonsForVisit/Edit.cshtml]
+[e:/ClinicApplication/Views/ReasonsForVisit/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVhc29uc0ZvclZpc2l0XEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/ReasonsForVisit/Index.cshtml]
+[e:/ClinicApplication/Views/ReasonsForVisit/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVhc29uc0ZvclZpc2l0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/RecordingMethods/Create.cshtml]
+[e:/ClinicApplication/Views/RecordingMethods/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3JkaW5nTWV0aG9kc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/RecordingMethods/Delete.cshtml]
+[e:/ClinicApplication/Views/RecordingMethods/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3JkaW5nTWV0aG9kc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/RecordingMethods/Edit.cshtml]
+[e:/ClinicApplication/Views/RecordingMethods/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3JkaW5nTWV0aG9kc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/RecordingMethods/Index.cshtml]
+[e:/ClinicApplication/Views/RecordingMethods/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3JkaW5nTWV0aG9kc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Registrars/Create.cshtml]
+[e:/ClinicApplication/Views/Registrars/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cmFyc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Registrars/Delete.cshtml]
+[e:/ClinicApplication/Views/Registrars/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cmFyc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Registrars/Edit.cshtml]
+[e:/ClinicApplication/Views/Registrars/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cmFyc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Registrars/Index.cshtml]
+[e:/ClinicApplication/Views/Registrars/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cmFyc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Registry/Create.cshtml]
+[e:/ClinicApplication/Views/Registry/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cnlcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Registry/Delete.cshtml]
+[e:/ClinicApplication/Views/Registry/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cnlcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Registry/Edit.cshtml]
+[e:/ClinicApplication/Views/Registry/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cnlcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Registry/Index.cshtml]
+[e:/ClinicApplication/Views/Registry/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cnlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Schedule/Create.cshtml]
+[e:/ClinicApplication/Views/Schedule/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2NoZWR1bGVcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Schedule/Delete.cshtml]
+[e:/ClinicApplication/Views/Schedule/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2NoZWR1bGVcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Schedule/Edit.cshtml]
+[e:/ClinicApplication/Views/Schedule/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2NoZWR1bGVcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Schedule/Index.cshtml]
+[e:/ClinicApplication/Views/Schedule/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2NoZWR1bGVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Shared/Error.cshtml]
+[e:/ClinicApplication/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Shared/InsufficientPermissions.cshtml]
+[e:/ClinicApplication/Views/Shared/InsufficientPermissions.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEluc3VmZmljaWVudFBlcm1pc3Npb25zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Shared/Unauthorized.cshtml]
+[e:/ClinicApplication/Views/Shared/Unauthorized.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFVuYXV0aG9yaXplZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Shared/_ValidationScriptsPartial.cshtml]
+[e:/ClinicApplication/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Tickets/Create.cshtml]
+[e:/ClinicApplication/Views/Tickets/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlja2V0c1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Tickets/Delete.cshtml]
+[e:/ClinicApplication/Views/Tickets/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlja2V0c1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Tickets/Edit.cshtml]
+[e:/ClinicApplication/Views/Tickets/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlja2V0c1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Tickets/Index.cshtml]
+[e:/ClinicApplication/Views/Tickets/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlja2V0c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/_ViewImports.cshtml]
+[e:/ClinicApplication/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/_ViewStart.cshtml]
+[e:/ClinicApplication/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/ClinicApplication/Views/Shared/_Layout.cshtml]
+[e:/ClinicApplication/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-1gmczmw4tl
