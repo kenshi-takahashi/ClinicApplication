@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Clinic.Models; // Подключаем пространство имен моделей вашего проекта
+using Npgsql;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ClinicDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // установка конфигурации подключения
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\ClinicApplication\\Сlinic.csproj": {}
+    "D:\\repo\\ClinicApplication\\Сlinic.csproj": {}
   },
   "projects": {
-    "e:\\ClinicApplication\\Сlinic.csproj": {
+    "D:\\repo\\ClinicApplication\\Сlinic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\ClinicApplication\\Сlinic.csproj",
+        "projectUniqueName": "D:\\repo\\ClinicApplication\\Сlinic.csproj",
         "projectName": "Сlinic",
-        "projectPath": "e:\\ClinicApplication\\Сlinic.csproj",
+        "projectPath": "D:\\repo\\ClinicApplication\\Сlinic.csproj",
         "packagesPath": "C:\\Users\\Kenshi\\.nuget\\packages\\",
-        "outputPath": "e:\\ClinicApplication\\obj\\",
+        "outputPath": "D:\\repo\\ClinicApplication\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Kenshi\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -34,6 +35,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -44,15 +50,19 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.4, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[9.0.0, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[8.0.2, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[9.0.1, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.1, )"
             }
           },
           "imports": [
@@ -74,7 +84,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
